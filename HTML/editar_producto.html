@@ -11,29 +11,41 @@
     <form>
         <label>Codigo del producto:</label>
         <br>
-        <input type="text">
+        <input type="text" name="Product_code">
+        <br><br>
+        <label>Cantidad actual:</label>
+        <br>
+        <input type="number" name="Stock" readonly>
         <br><br>
         <label>Nombre del producto:</label>
         <br>
-        <input type="text">
+        <input type="text" name="name">
         <br><br>
         <label>Categoria:</label>
-        <br>
-        <input type="text">
+         <br>
+        <select name="Id_Categoria">
+            <option value="1">PESCADOS</option>
+            <option value="2">CARNES</option>
+            <option value="3">PASTAS</option>
+            <option value="4">AVES</option>
+            <option value="5">ARROZ</option>
+            <option value="6">BEBIDAS</option>
+            <option value="7">BEBIDAS PREPARADAS</option>
+        </select>
         <br><br>
-        <label>Precio:</label>
+        <label>Precio compra:</label>
         <br>
-        <input type="number">
+        <input type="number" name="Purchase_price">
         <br><br>
-        <label>Cantidad:</label>
+        <label>Precio venta:</label>
         <br>
-        <input type="number">
+        <input type="number" name="Selling_price">
         <br><br>
-        <button type="submit">EDITAR PRODUCTO</button>
+        <button type="submit">CONFIRMAR CAMBIOS</button>
     </form>
     <br>
     <a href="productos.html">
-        <button class="boton_menu-volver">Volver a clientes</button>
+        <button class="boton_menu-volver">Volver a productos</button>
     </a>
     </div>
 </body>

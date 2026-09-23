@@ -9,21 +9,43 @@
     <h1>Registrar producto</h1>
     <p>Ingrese la informacion del nuevo producto</p>
     <form>
+        <label>Codigo del producto</label>
+        <br>
+        <input type="text" name="Product_code">
+        <br><br>
         <label>Nombre del producto:</label>
         <br>
-        <input type="text">
+        <input type="text" name="name">
         <br><br>
+        <label>Descripcion</label>
+        <br>
+        <input type="text" name="Description">
+        <br><br>
+
         <label>Categoria:</label>
         <br>
-        <input type="text">
+        <select name="Id_Categoria">
+            <option value="1">PESCADOS</option>
+            <option value="2">CARNES</option>
+            <option value="3">PASTAS</option>
+            <option value="4">AVES</option>
+            <option value="5">ARROZ</option>
+            <option value="6">BEBIDAS</option>
+            <option value="7">BEBIDAS PREPARADAS</option>
+        </select>
+
         <br><br>
-        <label>Precio:</label>
+        <label>Precio de compra:</label>
         <br>
-        <input type="number">
+        <input type="number" name="Purchase_price">
         <br><br>
-        <label>Cantidad:</label>
+         <label>Precio de venta:</label>
         <br>
-        <input type="number">
+        <input type="number" name="Selling_price">
+        <br><br>
+        <label>Stock:</label>
+        <br>
+        <input type="number" name="Stock">
         <br><br>
         <button type="submit">GUARDAR PRODUCTO</button>
 
