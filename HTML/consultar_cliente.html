@@ -6,14 +6,31 @@
 </head>
 <body>
     <div class="contenedor">
-    <p>Ingrese el numero de documento del cliente.</p>
+    <h1>Consultar cliente</h1>
+    <p>Ingrese el numero de documento del cliente o NIT.</p>
     <form>
-        <label>Numero de documento:</label>
+        <label>Numero de documento o RUT:</label>
         <br>
-        <input type="text">
+        <input type="text" name="identification">
         <br><br>
         <button type="submit">BUSCAR CLIENTE</button>
-
+        <br><br>
+        <label>Nombre del cliente:</label>
+        <br>
+        <input type="text" name="name" readonly>
+        <br><br>
+        <label>Numero de documento:</label>
+        <br>
+        <input type="text" name="identification" readonly>
+        <br><br>
+        <label>Numero de celular:</label>
+        <br>
+        <input type="text" name="phones_number" readonly>
+        <br><br>
+        <label>Correo electronico:</label>
+        <br>
+        <input type="email" name="email" readonly>
+        <br><br>
     </form>
     <br>
     <a href="clientes.html">

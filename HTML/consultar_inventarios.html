@@ -9,17 +9,28 @@
     <h1>Consultar inventario</h1>
     <p>Consulte y descargue la informacion del inventario</p>
     <form>
-        <button type="button">DESCARGAR INVENTARIO DE VENTA DIARIO</button>
-        <br><br>
-        <label>Ingrese la fecha que desea consultar:</label>
+        <label>INGRESE LA FECHA QUE DESEA CONSULTAR:</label>
         <br>
         <input type="date">
         <br><br>
-         <button>DESCARGAR INVENTARIO DEL DIA SELECIONADO</button>
+        <label>SELECCIONE CATEGORIA</label>
+        <select>
+            <option value="1">TODOS LOS PRODUCTOS</option>
+            <option value="2">PESCADOS</option>
+            <option value="3">CARNES</option>
+            <option value="4">PASTAS</option>
+            <option value="5">AVES</option>
+            <option value="6">ARROZ</option>
+            <option value="7">BEBIDAS</option>
+            <option value="8">BEBIDAS PREPARADAS</option>
+        </select>
+        <br><br>
+        <button type="button">DESCARGAR INVENTARIO</button>
+        <br><br>
     </form>
     <br>
-    <a href="inventarios.html">
-        <button class="boton_menu-volver">Volver a productos</button>
+    <a href="index.html">
+        <button class="boton_menu-volver">Volver al menu</button>
     </a>
     </div>
 </body>

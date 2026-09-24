@@ -6,25 +6,29 @@
 </head>
 <body>
     <div class="contenedor">
-    <h1>Ingresar los datos del cliente que desea modificar</h1>
+    <h1>Ingresar los datos del cliente o empresa que desea modificar</h1>
     <form>
-         <label>Numero de documento:</label>
+         <label>Numero de documento o NIT:</label>
         <br>
-        <input type="text">
+        <input type="text" name="identification">
         <br><br>
-        <button>BUSCAR CLIENTE</button>
+        <button type="button">BUSCAR CLIENTE</button>
         <br><br>
-        <label>Nombre del cliente:</label>
+        <label>Nombre del cliente o de la empresa:</label>
         <br>
-        <input type="text">
+        <input type="text" name="name">
+        <br><br>
+        <label>identificacion:</label>
+        <br>
+        <input type="text" name="identificacion" readonly>
         <br><br>
         <label>Numero de celular:</label>
         <br>
-        <input type="text">
+        <input type="text" name="phones_number">
         <br><br>
         <label>Correo electronico:</label>
         <br>
-        <input type="email">
+        <input type="email" name="email">
         <br><br>
         <button type="submit">GUARDAR NUEVOS DATOS</button>
     </form>
