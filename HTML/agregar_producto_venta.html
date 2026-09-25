@@ -12,31 +12,59 @@
   <form>
 
     <p>Ingrese la información del producto que desea agregar a la venta.</p>
-    <label>Codigo del producto</label>
+    <label>SELECCIONE PISO</label>
+    <select>
+      <option value="1">PISO 1</option>
+      <option value="2">PISO 2</option>
+      <option value="3">PISO 3</option>
+      <option value="4">PISO 4</option>
+      <option value="5">ROKOLA</option>
+
+    </select>
+    <label>INGRESE EL NUMERO DE MESA</label>
+    <input type="text">
     <br>
-    <input type="text"name="codigo_producto">
+        <label>SELECCIONE CATEGORIA</label>
+        <select>
+          <option value="1">PESCADOS</option>
+          <option value="2">CARNES</option>
+          <option value="3">PASTAS</option>
+          <option value="4">AVES</option>
+          <option value="5">ARROZ</option>
+          <option value="6">BEBIDAS</option>
+          <option value="7">BEBIDAS PREPARADAS</option>
+        </select>
     <br><br>
-    <label>Nombre del producto</label>
-    <br>
-    <input type="text" name="nombre_producto">
+    <label>PRODUCTOS</label>
+    <button>CHURRASCO $$$$$</button>
+    <button>LOMO DE CERDO $$$$$</button>
+    <button>SOBREBARRIGA $$$$</button>
     <br><br>
     <label>Cantidad</label>
     <br>
     <input type="number" name="Cantidad">
-    <br><br>
-    <label>precios</label>
     <br>
-    <input type="number" name="Precio">
+    <button>CONFIRMAR</button>
     <br><br>
-    <button type="button" class="boton_agregar">AGREGAR PRODUCTO</button>
+    <label>PEDIDO</label>
+    <input type="number" name="producto" readonly>
+    <input type="number" name="producto" readonly>
+    <input type="number" name="producto" readonly>
+    <input type="number" name="producto" readonly>
     <br><br>
-    <a href="resumen_venta.html">
-      <button class="boton_menu_continuar">CONTINUAR</button>
+    <label>TOTAL:</label>
+    <br>
+    <input type="number" name="Precio" readonly>
+    <br><br>
+    <button>CAMBIAR DE MESA</button>
+    <button>IMPRIMIR EN COCINA</button>
+    <a href="factura.html">
+    <button type="button" class="factura">FACTURAR</button>
     </a>
   </form>
   <br><br>
   <a href="nueva_venta.html">
-    <button class="boton_menu-volver">Volver a nueva venta</button>
+    <button class="boton_menu-volver">CANCELAR PEDIDO</button>
   </a>
   </div>
 </body>
