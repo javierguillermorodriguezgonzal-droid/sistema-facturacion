@@ -10,47 +10,59 @@
     <h2>Informacion de cliente</h2>
     <label>Nombre del cliente:</label>
         <br>
-        <input type="text">
-        <br><br>
+        <input type="text" readonly name="name">
+        <br>
         <label>Numero de documento:</label>
         <br>
-        <input type="text">
-        <br><br>
+        <input type="text" readonly name="identification">
+        <br>
+        <label>Correo electronico</label>
+        <br>
+        <input type="text" readonly name="email">
+        <br>
         <h2>Detalle de la venta</h2>
-        <label>Codigo de producto:</label>
+        <label>Fecha:</label>
+        <input type="date" name="Fecha">
+        <label>Hora:</label>
+        <input type="time" id="Hora" name="Hora">
+        <label>MESA:</label>
         <br>
-        <input type="text">
-        <br><br>
-        <label>Nombre del producto</label>
+        <input type="text" readonly>
         <br>
-        <input type="text">
+        <label>PRODUCTOS</label>
         <br>
-        <label>Cantidad</label>
+        <input type="text" readonly name="PRODUCTOS">
+        <br>
+        <label>SUB-TOTAL:</label>
+        <br>
+        <input type="number" readonly>
+        <br>
+        <label>Propina voluntaria del 10%:</label>
         <br>
         <input type="number">
         <br>
-        <label>Precio:</label>
+        <label>TOTAL:</label>
         <br>
-        <input type="number">
-        <br>
-        <label>Total:</label>
-        <br>
-        <input type="number">
-        <br>
+        <input type="number" readonly>
         <h2>Metodo de pago</h2>
         <br>
         <select>
-            <option>EFECTIVO</option>
-            <option>TARJETA</option>
-            <option>TRANSFERECIA</option>
+            <option value="1">EFECTIVO</option>
+            <option value="2">TARJETA DEBITO</option>
+            <option value="3">TARJETA CREDITO</option>
+            <option value="4">TRANSFERENCIA</option>
+            <option value="5">OTROS MEDIOS DE PAGO</option>
         </select>
         <br><br>
         <a href="venta_realizada.html">
-        <button class="boton_menu_continuar">CONFIRMAR VENTA</button>
+        <button class="boton_menu_continuar">FACTURAR</button>
         </a>
         <br><br>
-        <a href="resumen_venta.html">
-            <button class="boton_menu-volver">VOLVER AL RESUMEN</button>
+        <a href="agregar_producto_venta.html">
+            <button class="boton_menu-volver">Cancelar</button>
+        </a>
+        <a href="nueva_venta.html">
+            <button class="boton_menu-volver">Volver a Nueva venta</button>
         </a>
         </div>
 </body>
