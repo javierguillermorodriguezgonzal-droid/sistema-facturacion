@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eliminar producto</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+    <div class="contenedor">
+    <h1>Eliminar producto</h1>
+    <p>¿Qué producto deseas Eliminar?</p>
+    <form>
+        <label>Codigo del producto:</label>
+        <br>
+        <input type="text" name="Product_code">
+        <br><br>
+        <label>Nombre del producto:</label>
+        <br>
+        <input type="text" readonly name="name">
+        <br><br>
+        <label>Cantidad actual:</label>
+        <br>
+        <input type="number" readonly name="Stock">
+        <br><br>
+        <label>contraseña:</label>
+        <br>
+        <input type="password" name="password">
+        <br><br>
+        <button type="submit">ELIMINAR PRODUCTO</button>
+    </form>
+    <br>
+    <a href="{{ url_for('productos') }}">
+        <button class="boton_menu-volver">Volver a productos</button>
+    </a>
+    </div>
+</body>
+</html>
