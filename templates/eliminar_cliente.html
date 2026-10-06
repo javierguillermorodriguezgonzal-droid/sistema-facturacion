@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eliminar cliente</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+    <div class="contenedor">
+    <h1>Eliminar cliente</h1>
+    <form>
+        <label>Numero de documento:</label>
+        <br>
+        <input type="text" name="identificacion">
+        <br><br>
+        <button type="submit">BUSCAR CLIENTE</button>
+        <br><br>
+        <label>Nombre del cliente o de la empresa:</label>
+        <br>
+        <input type="text" name="name" readonly>
+        <br><br>
+        <label>identificacion:</label>
+        <br>
+        <input type="text" name="identificacion" readonly>
+        <br><br>
+        <label>Numero de celular:</label>
+        <br>
+        <input type="text" name="phones_number" readonly>
+        <br><br>
+        <label>Correo electronico:</label>
+        <br>
+        <input type="email" name="email" readonly>
+        <br><br>
+
+        <br><br>
+        <label>¿Esta seguro de eliminar este cliente?</label>
+        <br><br>
+        <label>Ingresa contraseña</label>
+        <br><br>
+        <input type="password" name="password">
+        <br><br>
+        <button>CONFIRMAR</button>
+    </form>
+    <br>
+    <a href="{{ url_for('clientes') }}">
+        <button class="boton_menu-volver">Volver a Clientes</button>
+    </a>
+    </div>
+</body>
+</html>

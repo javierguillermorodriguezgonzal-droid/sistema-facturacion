@@ -38,6 +38,22 @@ def consultar_inventarios():
 def clientes():
     return render_template("clientes.html")
 
+@app.route("/registrar_cliente")
+def registrar_cliente():
+    return render_template("registrar_cliente.html")
+
+@app.route("/consultar_cliente")
+def consultar_cliente():
+    return render_template("consultar_cliente.html")
+
+@app.route("/editar_cliente")
+def editar_cliente():
+    return render_template("editar_cliente.html")
+
+@app.route("/eliminar_cliente")
+def eliminar_cliente():
+    return render_template("eliminar_cliente.html")
+
 @app.route("/ventas")
 def ventas():
     return render_template("ventas.html")

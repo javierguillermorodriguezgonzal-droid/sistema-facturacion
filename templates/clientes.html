@@ -8,23 +8,23 @@
     <div class="contenedor">
     <h1>Clientes</h1>
     <p>Menu de clientes</p>
-    <a href="registrar_cliente.html">
+    <a href="{{ url_for('registrar_cliente') }}">
         <button>REGISTAR CLIENTE</button>
     </a>
     <br><br>
-    <a href="consultar_cliente.html">
+    <a href="{{ url_for('consultar_cliente') }}">
         <button>CONSULTAR CLIENTE</button>
     </a>
     <br><br>
-    <a href="editar_cliente.html">
+    <a href="{{ url_for('editar_cliente') }}">
         <button>EDITAR CLIENTE</button>
     </a>
     <br><br>
-     <a href="eliminar_cliente.html">
+    <a href="{{ url_for('eliminar_cliente') }}">
         <button>ELIMINAR CLIENTE</button>
     </a>
     <br><br>
-    <a href="index.html">
+    <a href="{{ url_for('menu') }}">
         <button class="boton_menu-volver">Volver al menu</button>
     </a>
     </div>
