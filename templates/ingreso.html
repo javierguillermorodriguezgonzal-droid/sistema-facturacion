@@ -10,16 +10,24 @@
     <h1>SISTEMA POS</h1>
 <h2>BRASAS DE ORO</h2>
 <p>Bienvenido nuevamente</p>
+
+<form action="/ingresar" method="POST">
+
 <label>usuario</label>
 <br>
-<input type ="text">
+<input type ="text" name="usuario">
 <br>
+
 <label>contraseña</label>
 <br>
-<input type="password">
+
+<input type="password" name="contraseña">
 <br>
-<a href="index.html">
-    <button class="boton_ingresar">INGRESAR AL SISTEMA</button>
+
+    <button class="boton_ingresar" type="submit">
+        INGRESAR AL SISTEMA
+    </button>
+</form>
 </a>
 </div>
 </body>
