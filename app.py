@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route("/")
 def inicio():
-    return "Sistema de facturación Brasas de Oro"
+    return render_template("ingreso.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
