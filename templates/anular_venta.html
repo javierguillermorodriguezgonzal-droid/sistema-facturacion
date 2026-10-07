@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Factura</title>
-    <link rel="stylesheet" href="estilos.css">
+    <title>Anular ventas</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
 </head>
 <body>
     <div class="contenedor">
-    <h1>FACTURA DE VENTA</h1>
-    <h2>Informacion de cliente</h2>
-    <label>Nombre del cliente:</label>
+    <h1>Anular ventas</h1>
+    <p>Ingrese el numero de factura.</p>
+    <form>
+        <label>Numero de factura</label>
+        <br>
+        <input type="text" name="identification">
+        <br><br>
+        <button type="submit">BUSCAR FACTURA</button>
+        <br><br>
+         <label>Nombre del cliente:</label>
         <br>
         <input type="text" readonly name="name">
         <br>
@@ -44,26 +51,23 @@
         <label>TOTAL:</label>
         <br>
         <input type="number" readonly>
-        <h2>Metodo de pago</h2>
+        <label>Metodo de pago</label>
         <br>
-        <select>
-            <option value="1">EFECTIVO</option>
-            <option value="2">TARJETA DEBITO</option>
-            <option value="3">TARJETA CREDITO</option>
-            <option value="4">TRANSFERENCIA</option>
-            <option value="5">OTROS MEDIOS DE PAGO</option>
-        </select>
+        <input type="text" readonly>
         <br><br>
-        <a href="venta_realizada.html">
-        <button class="boton_menu_continuar">FACTURAR</button>
-        </a>
+        <label>¿Esta seguro de eliminar esta factura?</label>
         <br><br>
-        <a href="agregar_producto_venta.html">
-            <button class="boton_menu-volver">Cancelar</button>
-        </a>
-        <a href="nueva_venta.html">
-            <button class="boton_menu-volver">Volver a Nueva venta</button>
-        </a>
-        </div>
+        <label>Ingresa contraseña</label>
+        <br><br>
+        <input type="password" name="password">
+        <br><br>
+        <button>CONFIRMAR</button>
+        <br>
+    </form>
+    <br>
+    <a href="{{ url_for('ventas') }}">
+        <button class="boton_menu-volver">Volver a clientes</button>
+    </a>
+    </div>
 </body>
 </html>

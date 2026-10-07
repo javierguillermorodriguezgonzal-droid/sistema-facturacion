@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consultar ventas</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+    <div class="contenedor">
+    <h1>Consultar ventas</h1>
+    <p>Ingrese el numero de factura.</p>
+    <form>
+        <label>Numero de factura</label>
+        <br>
+        <input type="text" name="identification">
+        <br><br>
+        <button type="submit">BUSCAR FACTURA</button>
+        <br><br>
+         <label>Nombre del cliente:</label>
+        <br>
+        <input type="text" readonly name="name">
+        <br>
+        <label>Numero de documento:</label>
+        <br>
+        <input type="text" readonly name="identification">
+        <br>
+        <label>Correo electronico</label>
+        <br>
+        <input type="text" readonly name="email">
+        <br>
+        <h2>Detalle de la venta</h2>
+        <label>Fecha:</label>
+        <input type="date" name="Fecha">
+        <label>Hora:</label>
+        <input type="time" id="Hora" name="Hora">
+        <label>MESA:</label>
+        <br>
+        <input type="text" readonly>
+        <br>
+        <label>PRODUCTOS</label>
+        <br>
+        <input type="text" readonly name="PRODUCTOS">
+        <br>
+        <label>SUB-TOTAL:</label>
+        <br>
+        <input type="number" readonly>
+        <br>
+        <label>Propina voluntaria del 10%:</label>
+        <br>
+        <input type="number">
+        <br>
+        <label>TOTAL:</label>
+        <br>
+        <input type="number" readonly>
+        <label>Metodo de pago</label>
+        <br>
+        <input type="text" readonly>
+        <br>
+    </form>
+    <br>
+    <a href="{{ url_for('ventas') }}">
+        <button class="boton_menu-volver">Volver a clientes</button>
+    </a>
+    </div>
+</body>
+</html>

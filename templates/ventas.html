@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <TItle>VENTAS</TItle>
     <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
 </head>
 <body>
     <div class="contenedor">
     <h1>Ventas</h1>
     <p>Gestion de ventas del sistema</p>
-    <a href="nueva_venta.html">
+    <a href="{{ url_for('nueva_venta') }}">
         <button>NUEVA VENTA</button>
     </a>
     <br><br>
-    <a href="consultar_factura.html"> 
+   <a href="{{ url_for('consultar_ventas') }}">
         <button>CONSULTAR VENTA</button>
     </a>
     <br><br>
-    <a href="anular_venta.html">
+    <a href="{{ url_for('anular_venta') }}">
         <button>ANULAR VENTA</button>
     </a>
     <br><br>
-    <a href="index.html">
+    <a href="{{ url_for('menu') }}">
         <button class="boton_menu-volver">Volver al menu</button>
     </a>
     </div>

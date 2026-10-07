@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Nueva venta</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
 </head>
 <body>
     <div class="contenedor">
@@ -35,7 +35,7 @@
         <br><br>
     </form>
     <br>
-    <a href="ventas.html">
+    <a href="{{ url_for('ventas') }}">
         <button class="boton_menu-volver">Volver a ventas</button>
     </a>
     </div>

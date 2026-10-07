@@ -58,6 +58,18 @@ def eliminar_cliente():
 def ventas():
     return render_template("ventas.html")
 
+@app.route("/nueva_venta")
+def nueva_venta():
+    return render_template("nueva_venta.html")
+
+@app.route("/consultar_ventas")
+def consultar_ventas():
+    return render_template("consultar_ventas.html")
+
+@app.route("/anular_venta")
+def anular_venta():
+    return render_template("anular_venta.html")
+
 @app.route("/ingresar", methods=["POST"])
 def ingresar():
     usuario = request.form["usuario"]
