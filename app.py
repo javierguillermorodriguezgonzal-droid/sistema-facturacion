@@ -1,6 +1,23 @@
 from flask import Flask, render_template, request, redirect, url_for
+import mysql.connector
+
 
 app = Flask(__name__)
+
+conexion =  mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="123456",
+    database="sistema_facturacion_flask"
+)
+
+print("CONEXION A MYSQL EXITOSA")
+cursor = conexion.cursor()
+
+cursor.execute("SHOW TABLES")
+
+for tabla in cursor:
+    print(tabla)
 
 @app.route("/")
 def ingreso():
@@ -12,18 +29,147 @@ def menu():
 
 @app.route("/productos")
 def productos():
-    return render_template("productos.html")
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM products")
+    productos = cursor.fetchall()
+    return render_template("productos.html", productos=productos)
 
-@app.route("/registrar_producto")
+@app.route("/registrar_producto", methods=["GET", "POST"])
 def registrar_producto():
+
+    if request.method == "POST":
+
+        codigo = request.form["Product_code"]
+        nombre = request.form["name"]
+        descripcion = request.form["Description"]
+        categoria = request.form["Id_Categoria"]
+        precio_compra = request.form["Purchase_price"]
+        precio_venta = request.form["Selling_price"]
+        stock = request.form["Stock"]
+
+        sql = """
+            INSERT INTO products
+            (Id_Categoria, Product_code, name, Description, Purchase_price, Selling_price, Stock)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """
+
+        valores = (
+            categoria,
+            codigo,
+            nombre,
+            descripcion,
+            precio_compra,
+            precio_venta,
+            stock
+        )
+
+        cursor = conexion.cursor()
+        cursor.execute(sql, valores)
+        conexion.commit()
+
+        return redirect(url_for("productos"))
+
     return render_template("registrar_producto.html")
 
-@app.route("/agregar_productos")
-def agregar_productos():
-    return render_template("agregar_productos.html")
+    print(codigo)
+    print(nombre)
+    print(descripcion)
+    print(categoria)
+    print(precio_compra)
+    print(precio_venta)
+    print(stock)
 
-@app.route("/editar_producto")
+    return render_template("registrar_producto.html")
+
+@app.route("/agregar_productos", methods=["GET", "POST"])
+def agregar_productos():
+
+    if request.method == "POST":
+        codigo = request.form["Product_code"]
+        accion = request.form["accion"]
+        if accion == "buscar":
+            cursor = conexion.cursor()
+            cursor.execute(
+                "SELECT * FROM products WHERE Product_code = %s",
+                (codigo,) 
+            )
+            producto = cursor.fetchone()
+            return render_template(
+                "agregar_productos.html",
+                producto=producto
+            )
+        cantidad = request.form["cantidad_agregar"]
+        cursor = conexion.cursor()
+        cursor.execute(
+            "SELECT stock FROM products WHERE product_code = %s",
+            (codigo,)
+        )
+        producto = cursor.fetchone()
+        stock_actual = producto [0]
+        nuevo_stock = stock_actual + int(cantidad)
+        sql = """
+            UPDATE products
+            SET stock = %s
+            WHERE Product_code = %s
+        """
+        valores = (nuevo_stock,codigo)
+        cursor.execute(sql, valores)
+        conexion.commit()
+        return redirect(url_for("productos"))
+    return render_template("agregar_productos.html") 
+    
+
+@app.route("/editar_producto", methods=["GET", "POST"])
 def editar_producto():
+    
+    if request.method == "POST":
+
+        codigo = request.form["Product_code"]
+        accion = request.form["accion"]
+
+        if accion == "buscar":
+            cursor = conexion.cursor()
+            cursor.execute(
+                "SELECT * FROM products WHERE product_code = %s",
+                (codigo,)
+            )
+            producto = cursor.fetchone()
+            return render_template(
+                "editar_producto.html",
+                producto=producto
+            )
+        nombre = request.form["name"]
+        categoria = request.form["Id_Categoria"]
+        precio_compra = request.form["Purchase_price"]
+        precio_venta = request.form["Selling_price"]
+
+        sql = """
+            UPDATE products
+            SET Product_code = %s,
+                name = %s,
+                Id_categoria = %s,
+                Purchase_price = %s,
+                Selling_price = %s
+            WHERE Product_code = %s
+        """
+        valores = (
+            codigo,
+            nombre,
+            categoria,
+            precio_compra,
+            precio_venta,
+            codigo
+            )
+
+        cursor = conexion.cursor()
+        cursor.execute(sql, valores)
+        conexion.commit()
+        return redirect(url_for("productos"))
+    
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM products WHERE product_code = %s", ("1003",))
+    producto = cursor.fetchone()
+
     return render_template("editar_producto.html")
 
 @app.route("/eliminar_productos")

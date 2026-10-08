@@ -23,6 +23,33 @@
          <button>ELIMINAR PRODUCTOS</button>
     </a>
     <br><br>
+
+    <h2>Lista de productos</h2>
+
+    <table>
+        <tr>
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Stock</th>
+        </tr>
+    {% for producto in productos %}
+    <tr>
+        <td>{{ producto[2]}}</td>
+        <td>{{ producto[3]}}</td>
+        <td>{{ producto[4]}}</td>
+        <td>{{ producto[7]}}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td> colspan="4">No hay productos registrados</td>
+    </tr>
+
+    {% endfor %}
+
+    </table>
+
+    <br><br>
     <a href="{{ url_for('menu') }}">
         <button class="boton_index">Volver al menu</button>
     </a>

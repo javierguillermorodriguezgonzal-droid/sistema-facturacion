@@ -8,7 +8,7 @@
     <div class="contenedor">
     <h1>Registrar producto</h1>
     <p>Ingrese la informacion del nuevo producto</p>
-    <form>
+    <form method="POST" action="{{ url_for('registrar_producto') }}">
         <label>Codigo del producto</label>
         <br>
         <input type="text" name="Product_code">

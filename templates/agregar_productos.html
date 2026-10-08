@@ -8,20 +8,25 @@
     <div class="contenedor">
         <h1>Agregar producto</h1>
         <p>Agregar cantidad a un producto existente</p>
-        <form>
+        <form method="POST" action="{{ url_for('agregar_productos') }}">
             <label>Codigo del producto:</label>
             <br>
-            <input type="text" name="Product_code">
+            <input type="text" name="Product_code" value="{{ producto[2] if producto else '' }}">
+            <button type="submit" name="accion" value="buscar">
+                BUSCAR PRODUCTO
+            </button>
             <br><br>
             <label>Cantidad actual:</label>
             <br>
-            <input type="number" name="Stock" readonly>
+            <input type="number" name="Stock" value="{{ producto[7] if producto else '' }}" readonly>
             <br><br>
             <label>Cantidad a Agregar:</label>
             <br>
             <input type="number" name="cantidad_agregar">
             <br><br>
-            <button type="submit">AGREGAR CANTIDAD</button>
+            <button type="submit" name="accion" value="guardar">
+                AGREGAR CANTIDAD
+            </button>
 
         </form>
     <br>
