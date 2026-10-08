@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Factura</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="contenedor">
+    <h1>FACTURA DE VENTA</h1>
+    <h2>Informacion de cliente</h2>
+    <label>Nombre del cliente:</label>
+        <br>
+        <input type="text" readonly name="name">
+        <br>
+        <label>Numero de documento:</label>
+        <br>
+        <input type="text" readonly name="identification">
+        <br>
+        <label>Correo electronico</label>
+        <br>
+        <input type="text" readonly name="email">
+        <br>
+        <h2>Detalle de la venta</h2>
+        <label>Fecha:</label>
+        <input type="date" name="Fecha">
+        <label>Hora:</label>
+        <input type="time" id="Hora" name="Hora">
+        <label>MESA:</label>
+        <br>
+        <input type="text" readonly>
+        <br>
+        <label>PRODUCTOS</label>
+        <br>
+        <input type="text" readonly name="PRODUCTOS">
+        <br>
+        <label>SUB-TOTAL:</label>
+        <br>
+        <input type="number" readonly>
+        <br>
+        <label>Propina voluntaria del 10%:</label>
+        <br>
+        <input type="number">
+        <br>
+        <label>TOTAL:</label>
+        <br>
+        <input type="number" readonly>
+        <h2>Metodo de pago</h2>
+        <br>
+        <select>
+            <option value="1">EFECTIVO</option>
+            <option value="2">TARJETA DEBITO</option>
+            <option value="3">TARJETA CREDITO</option>
+            <option value="4">TRANSFERENCIA</option>
+            <option value="5">OTROS MEDIOS DE PAGO</option>
+        </select>
+        <br><br>
+        <a href="venta_realizada.html">
+        <button class="boton_menu_continuar">FACTURAR</button>
+        </a>
+        <br><br>
+        <a href="agregar_producto_venta.html">
+            <button class="boton_menu-volver">Cancelar</button>
+        </a>
+        <a href="nueva_venta.html">
+            <button class="boton_menu-volver">Volver a Nueva venta</button>
+        </a>
+        </div>
+</body>
+</html>

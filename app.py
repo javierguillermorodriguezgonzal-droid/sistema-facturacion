@@ -180,6 +180,30 @@ def eliminar_productos():
 def consultar_inventarios():
     return render_template("consultar_inventarios.html")
 
+@app.route("/mesas")
+def mesas():
+    return render_template("mesas.html")
+
+@app.route("/piso1")
+def piso1():
+    return render_template("piso1.html")
+
+@app.route("/piso2")
+def piso2():
+    return render_template("piso2.html")
+
+@app.route("/piso3")
+def piso3():
+    return render_template("piso3.html")
+
+@app.route("/piso4")
+def piso4():
+    return render_template("piso4.html")
+
+@app.route("/rokola")
+def rokola():
+    return render_template("rokola.html")
+
 @app.route("/clientes")
 def clientes():
     return render_template("clientes.html")

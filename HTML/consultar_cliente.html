@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consultar cliente</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="contenedor">
+    <h1>Consultar cliente</h1>
+    <p>Ingrese el numero de documento del cliente o NIT.</p>
+    <form>
+        <label>Numero de documento o RUT:</label>
+        <br>
+        <input type="text" name="identification">
+        <br><br>
+        <button type="submit">BUSCAR CLIENTE</button>
+        <br><br>
+        <label>Nombre del cliente:</label>
+        <br>
+        <input type="text" name="name" readonly>
+        <br><br>
+        <label>Numero de documento:</label>
+        <br>
+        <input type="text" name="identification" readonly>
+        <br><br>
+        <label>Numero de celular:</label>
+        <br>
+        <input type="text" name="phones_number" readonly>
+        <br><br>
+        <label>Correo electronico:</label>
+        <br>
+        <input type="email" name="email" readonly>
+        <br><br>
+    </form>
+    <br>
+    <a href="clientes.html">
+        <button class="boton_menu-volver">Volver a clientes</button>
+    </a>
+    </div>
+</body>
+</html>

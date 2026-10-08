@@ -2,36 +2,31 @@
 <html>
 <head>
     <title>Sistema de Facturacion</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
+    <link rel="stylesheet" href="estilos.css">
+</head>
 <body>
     <div class="contenedor">
         <h1>SISTEMA DE FACTURACION</h1>
         <p>Bienvenido al sistema de facturacion</p>
         <h2>Menu Principal</h2>
         <div class="menu">
-
-            <a href="{{ url_for('productos') }}">
+            <a href="productos.html">
                 <button class="boton_menu">PRODUCTOS</button>
             </a>
             <br>
-
-            <a href="{{ url_for('consultar_inventarios') }}">
+            <a href="consultar_inventarios.html">
                 <button class="boton_menu">INVENTARIOS</button>
             </a>
             <br>
-            <a href="{{ url_for('mesas') }}">
-                <button class="button_menu">MESAS</button>
-            </a>
-            <br>
-            <a href="{{ url_for('clientes') }}">
+            <a href="clientes.html">
                 <button class="boton_menu">CLIENTES</button>
             </a>
             <br>
-            <a href="{{ url_for('ventas') }}">
-                <button class="boton_menu">VENTAS</button>
+            <a href="ventas.html">
+            <button class="boton_menu">VENTAS</button>
             </a>
             <br>
-            <a href="{{ url_for('ingreso') }}">
+            <a href="ingreso.html">
                 <button class="boton-salir">SALIR</button>
             </a>
         </div>
