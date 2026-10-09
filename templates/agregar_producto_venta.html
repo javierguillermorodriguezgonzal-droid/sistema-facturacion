@@ -2,43 +2,46 @@
 <html>
 
 <head>
-    <title>Agregar producto</title>
-    <link rel="stylesheet" href="estilos.css">
+    <title>Agregar producto a venta</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
+
 </head>
 
 <body>
   <div class="contenedor">
     <h1>Agregar producto a venta</h1>
-  <form>
+    <h2>{{ zona }} - MESA {{ mesa }}</h2>
+  <form method="POST">
 
     <p>Ingrese la información del producto que desea agregar a la venta.</p>
-    <label>SELECCIONE PISO</label>
-    <select>
-      <option value="1">PISO 1</option>
-      <option value="2">PISO 2</option>
-      <option value="3">PISO 3</option>
-      <option value="4">PISO 4</option>
-      <option value="5">ROKOLA</option>
-
-    </select>
-    <label>INGRESE EL NUMERO DE MESA</label>
-    <input type="text" name="table_number">
     <br>
         <label>SELECCIONE CATEGORIA</label>
-        <select>
-          <option value="1">PESCADOS</option>
-          <option value="2">CARNES</option>
-          <option value="3">PASTAS</option>
-          <option value="4">AVES</option>
-          <option value="5">ARROZ</option>
-          <option value="6">BEBIDAS</option>
-          <option value="7">BEBIDAS PREPARADAS</option>
+        <select name="categoria" onchange="this.form.submit()">
+          <option value="">SELECCIONE UNA CATEGORIA</option>
+          {% for categoria in categorias %}
+           <option value="{{ categoria[0] }}"
+            {% if categoria[0]|string == categoria_selecionada|string %}selected{% endif %}>
+            {{ categoria[1] }}
+          </option>
+          {% endfor %}
         </select>
     <br><br>
     <label>PRODUCTOS</label>
-    <button>CHURRASCO $$$$$</button>
-    <button>LOMO DE CERDO $$$$$</button>
-    <button>SOBREBARRIGA $$$$</button>
+
+    <div class="menu">
+      {% if productos %}
+          {% for producto in productos %}
+              <button type="button" class="boton_menu">
+                  {{producto[1] }} - ${{ producto[2] }}
+              </button>
+          {% endfor %}
+      {% elif categoria_selecionada %}
+         <p>No hay productos registrador en esta categoria.</p>
+      {% else %}
+      <p>seleccione una categoria para ver sus productos</p>+*
+      {% endif %}
+    </div>
+
     <br><br>
     <label>Cantidad</label>
     <br>

@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 
 
 app = Flask(__name__)
+app.secret_key = "brasas_de_oro_clave_local"
 
 conexion =  mysql.connector.connect(
     host="localhost",
@@ -34,6 +35,7 @@ def productos():
     productos = cursor.fetchall()
     return render_template("productos.html", productos=productos)
 
+
 @app.route("/registrar_producto", methods=["GET", "POST"])
 def registrar_producto():
 
@@ -49,7 +51,8 @@ def registrar_producto():
 
         sql = """
             INSERT INTO products
-            (Id_Categoria, Product_code, name, Description, Purchase_price, Selling_price, Stock)
+            (Id_Categoria, Product_code, name, Description,
+             Purchase_price, Selling_price, Stock)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
 
@@ -64,60 +67,77 @@ def registrar_producto():
         )
 
         cursor = conexion.cursor()
-        cursor.execute(sql, valores)
-        conexion.commit()
+
+        try:
+            cursor.execute(sql, valores)
+            conexion.commit()
+        except Exception:
+            conexion.rollback()
+            raise
+        finally:
+            cursor.close()
 
         return redirect(url_for("productos"))
-
-    return render_template("registrar_producto.html")
-
-    print(codigo)
-    print(nombre)
-    print(descripcion)
-    print(categoria)
-    print(precio_compra)
-    print(precio_venta)
-    print(stock)
 
     return render_template("registrar_producto.html")
 
 @app.route("/agregar_productos", methods=["GET", "POST"])
 def agregar_productos():
-
     if request.method == "POST":
+
         codigo = request.form["Product_code"]
         accion = request.form["accion"]
+
+        # Buscar un producto por su código
         if accion == "buscar":
             cursor = conexion.cursor()
             cursor.execute(
                 "SELECT * FROM products WHERE Product_code = %s",
-                (codigo,) 
+                (codigo,)
             )
             producto = cursor.fetchone()
+            cursor.close()
+
             return render_template(
                 "agregar_productos.html",
                 producto=producto
             )
-        cantidad = request.form["cantidad_agregar"]
+
+        # Aumentar las unidades existentes en el inventario
+        cantidad = int(request.form["cantidad_agregar"])
+
         cursor = conexion.cursor()
         cursor.execute(
-            "SELECT stock FROM products WHERE product_code = %s",
+            "SELECT Stock FROM products WHERE Product_code = %s",
             (codigo,)
         )
         producto = cursor.fetchone()
-        stock_actual = producto [0]
-        nuevo_stock = stock_actual + int(cantidad)
+
+        if producto is None:
+            cursor.close()
+            return render_template(
+                "agregar_productos.html",
+                producto=None,
+                error="No se encontró el producto."
+            )
+
+        stock_actual = producto[0]
+        nuevo_stock = stock_actual + cantidad
+
         sql = """
             UPDATE products
-            SET stock = %s
+            SET Stock = %s
             WHERE Product_code = %s
         """
-        valores = (nuevo_stock,codigo)
+        valores = (nuevo_stock, codigo)
+
         cursor.execute(sql, valores)
         conexion.commit()
+        cursor.close()
+
         return redirect(url_for("productos"))
-    return render_template("agregar_productos.html") 
-    
+
+    return render_template("agregar_productos.html")
 
 @app.route("/editar_producto", methods=["GET", "POST"])
 def editar_producto():
@@ -166,10 +186,6 @@ def editar_producto():
         conexion.commit()
         return redirect(url_for("productos"))
     
-    cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM products WHERE product_code = %s", ("1003",))
-    producto = cursor.fetchone()
-
     return render_template("editar_producto.html")
 
 @app.route("/eliminar_productos")
@@ -204,6 +220,96 @@ def piso4():
 def rokola():
     return render_template("rokola.html")
 
+
+@app.route("/pedido/<zona>/<mesa>", methods=["GET", "POST"])
+def agregar_producto_venta(zona, mesa):
+    cursor = conexion.cursor()
+
+    # Cada mesa tendrá su propio pedido
+    clave_pedido = f"pedido_{zona}_{mesa}"
+    pedido = session.get(clave_pedido, [])
+
+    categoria_seleccionada = request.values.get("categoria", "")
+
+    # Si se pulsa un producto, lo agregamos al pedido
+    if request.method == "POST" and request.form.get("product_id"):
+        try:
+            cantidad = int(request.form.get("Cantidad", 1))
+        except (ValueError, TypeError):
+            cantidad = 0
+
+        if cantidad > 0:
+            id_producto = request.form.get("product_id")
+
+            cursor.execute(
+                """
+                SELECT Id_product, name, Selling_price
+                FROM products
+                WHERE Id_product = %s
+                """,
+                (id_producto,)
+            )
+            producto = cursor.fetchone()
+
+            if producto:
+                encontrado = False
+
+                for articulo in pedido:
+                    if articulo["id"] == producto[0]:
+                        articulo["cantidad"] += cantidad
+                        encontrado = True
+                        break
+
+                if not encontrado:
+                    pedido.append({
+                        "id": producto[0],
+                        "nombre": producto[1],
+                        "precio": float(producto[2]),
+                        "cantidad": cantidad
+                    })
+
+                session[clave_pedido] = pedido
+                session.modified = True
+
+    # Consultar las categorías
+    cursor.execute(
+        "SELECT * FROM category ORDER BY Id_Category"
+    )
+    categorias = cursor.fetchall()
+
+    # Consultar los productos de la categoría elegida
+    productos = []
+
+    if categoria_seleccionada:
+        cursor.execute(
+            """
+            SELECT Id_product, name, Selling_price
+            FROM products
+            WHERE Id_Categoria = %s
+            ORDER BY name
+            """,
+            (categoria_seleccionada,)
+        )
+        productos = cursor.fetchall()
+
+    cursor.close()
+
+    # Calcular el total del pedido
+    total = sum(
+        articulo["precio"] * articulo["cantidad"]
+        for articulo in pedido
+    )
+
+    return render_template(
+        "agregar_producto_venta.html",
+        zona=zona,
+        mesa=mesa,
+        categorias=categorias,
+        productos=productos,
+        categoria_seleccionada=categoria_seleccionada,
+        pedido=pedido,
+        total=total
+    )
 @app.route("/clientes")
 def clientes():
     return render_template("clientes.html")
