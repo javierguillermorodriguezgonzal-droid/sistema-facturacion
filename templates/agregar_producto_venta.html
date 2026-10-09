@@ -2,7 +2,9 @@
 <html>
 
 <head>
-    <title>Agregar producto a venta</title>
+  <meta charset="UFT-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pedido - Brasas de Oro</title>
     <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
 
 </head>
@@ -11,68 +13,69 @@
   <div class="contenedor">
     <h1>Agregar producto a venta</h1>
     <h2>{{ zona }} - MESA {{ mesa }}</h2>
-  <form method="POST">
 
-    <p>Ingrese la información del producto que desea agregar a la venta.</p>
+    <p>Seleccione la categoria, el producto y la cantidad.</p>
     <br>
+    <form method="POST">
         <label>SELECCIONE CATEGORIA</label>
         <select name="categoria" onchange="this.form.submit()">
           <option value="">SELECCIONE UNA CATEGORIA</option>
           {% for categoria in categorias %}
            <option value="{{ categoria[0] }}"
-            {% if categoria[0]|string == categoria_selecionada|string %}selected{% endif %}>
+            {% if categoria[0]|string == categoria_seleccionada|string %}selected{% endif %}>
             {{ categoria[1] }}
-          </option>
+           </option>
           {% endfor %}
         </select>
     <br><br>
-    <label>PRODUCTOS</label>
-
+    <label>CANTIDAD</label>
+    <input type="number" name="Cantidad" min="1" value="1" required>
+    <br><br>
+    <label>PRODUCTO</label>
     <div class="menu">
       {% if productos %}
           {% for producto in productos %}
-              <button type="button" class="boton_menu">
+              <button 
+                  type="submit"
+                  class="boton_menu"
+                  name="product_id"
+                  value="{{ producto[0] }}">
                   {{producto[1] }} - ${{ producto[2] }}
               </button>
           {% endfor %}
-      {% elif categoria_selecionada %}
-         <p>No hay productos registrador en esta categoria.</p>
+      {% elif categoria_seleccionada %}
+         <p>Aún no hay productos registrador en esta categoria.</p>
       {% else %}
-      <p>seleccione una categoria para ver sus productos</p>+*
+          <p>seleccione una categoria para ver sus productos</p>
       {% endif %}
     </div>
+    </form>
+    <h2>PEDIDO ACTUAL</h2>
+    {% if pedido %}
+        {% for articulo in pedido %}
+             <p>
+              {{ articulo.nombre}}
+              - cantidad: {{ articulo.cantidad }}
+              - Precio unitario: ${{ "%.2f"|format(articulo.precio) }}
+              - subtotal: ${{ "%.2f"|format(articulo.precio*articulo.cantidad) }}
+             </p>
+        {% endfor %}
+    {% else %}
+         <p>Aun no hay productos en este producto.</p>
+    {% endif %}
+    <h2>TOTAL: ${{ "%.2f"|format(total) }}</h2>
+    <br>
 
-    <br><br>
-    <label>Cantidad</label>
-    <br>
-    <input type="number" name="Cantidad">
-    <br>
-    <button>CONFIRMAR</button>
-    <br><br>
-    <label>PEDIDO</label>
-    <input type="number" name="producto" readonly>
-    <input type="number" name="producto" readonly>
-    <input type="number" name="producto" readonly>
-    <input type="number" name="producto" readonly>
-    <br><br>
-    <label>TOTAL:</label>
-    <br>
-    <input type="number" name="Precio" readonly>
-    <br><br>
-    <button>CAMBIAR DE MESA</button>
-    <button>IMPRIMIR EN COCINA</button>
-    <button>ELIMINAR PRODUCTO</button>
+    <button type="button">CAMBIAR MESA</button>
+    <button type="button">IMPRIMIR EN COCINA</button>
+    <button type="button">ELIMINAR PRODUCTO</button>
     <br><br>
     <a href="factura.html">
     <button type="button" class="factura">FACTURAR</button>
     </a>
-    <a href="nueva_venta.html">
-      <button type="button" class="nueva_venta">AGREGAR CLIENTE</button>
-    </a>
-    </form>
   <br><br>
-  <a href="nueva_venta.html">
-    <button class="boton_menu-volver">CANCELAR PEDIDO</button>
+  <a href="{{ url_for('mesas') }}">
+    <button type="button" class="boton_menu-volver">VOLVER A MESAS</button>
   </a>
   </div>
 </body>
