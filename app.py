@@ -202,24 +202,73 @@ def mesas():
 
 @app.route("/piso1")
 def piso1():
-    return render_template("piso1.html")
+    estados_mesas = {}
+    for numero in range(1,8):
+        clave_pedido = f"pedido_PISO 1_{numero}"
+        pedido = session.get(clave_pedido,[])
+
+        estados_mesas[str(numero)] = "ocupada" if pedido else "disponible"
+
+    return render_template(
+        "piso1.html",
+        estados_mesas=estados_mesas
+        )
 
 @app.route("/piso2")
 def piso2():
-    return render_template("piso2.html")
+    estados_mesas = {}
+    for numero in range(8,23):
+        clave_pedido = f"pedido_PISO 2_{numero}"
+        pedido = session.get(clave_pedido,[])
+    
+        estados_mesas[str(numero)] = "ocupada" if pedido else "disponible"
+    
+    return render_template(
+            "piso2.html",
+            estados_mesas=estados_mesas
+            )
 
 @app.route("/piso3")
 def piso3():
-    return render_template("piso3.html")
+    estados_mesas = {}
+    for numero in range(23,30):
+        clave_pedido = f"pedido_PISO 3_{numero}"
+        pedido = session.get(clave_pedido,[])
+    
+        estados_mesas[str(numero)] = "ocupada" if pedido else "disponible"
+    
+    return render_template(
+            "piso3.html",
+            estados_mesas=estados_mesas
+            )
 
 @app.route("/piso4")
 def piso4():
-    return render_template("piso4.html")
+    estados_mesas = {}
+    for numero in range(30,41):
+        clave_pedido = f"pedido_PISO 4_{numero}"
+        pedido = session.get(clave_pedido,[])
+    
+        estados_mesas[str(numero)] = "ocupada" if pedido else "disponible"
+    
+    return render_template(
+            "piso4.html",
+            estados_mesas=estados_mesas
+            )
 
 @app.route("/rokola")
 def rokola():
-    return render_template("rokola.html")
-
+    estados_mesas = {}
+    for numero in range(50,57):
+        clave_pedido = f"pedido_ROKOLA_{numero}"
+        pedido = session.get(clave_pedido,[])
+    
+        estados_mesas[str(numero)] = "ocupada" if pedido else "disponible"
+    
+    return render_template(
+            "rokola.html",
+            estados_mesas=estados_mesas
+            )
 
 @app.route("/pedido/<zona>/<mesa>", methods=["GET", "POST"])
 def agregar_producto_venta(zona, mesa):

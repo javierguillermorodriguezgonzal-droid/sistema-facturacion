@@ -189,3 +189,26 @@ button:hover {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 }
+/* ESTASDO DE LAS MESAS */
+/* Mesa sin productos en su pedido */
+
+.mesa-libre {
+    background-color: #2e8bf7;
+    color: white;
+    border: 2px solid #246b45;
+}
+
+/* efecto al pasar el mouse */
+.mesa-libre:hover {
+    background-color: #246b45;
+}
+/* mesa con productos en su pedido */
+.mesa-ocupada {
+    background-color: #dc3545;
+    color: white;
+    border: 2px solid #a71d2a;
+}
+/* efecto al pasar el mouse */
+.mesa-ocupado:hover {
+    background-color: #a71d2a;
+}

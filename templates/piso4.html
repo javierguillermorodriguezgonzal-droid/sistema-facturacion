@@ -16,57 +16,79 @@
             <div class="menu">
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='30') }}">
-                    <button class="boton_menu">MESA 30</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['30'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 30
+                    </button>
                 </a>
                 
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='31') }}">
-                    <button class="boton_menu">MESA 31</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['31'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 31
+                    </button>
                 </a>
                 <br><br>
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='32') }}">
-                    <button class="boton_menu">MESA 32</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['32'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 32
+                    </button>
                 </a>
                 
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='33') }}">
-                    <button class="boton_menu">MESA 33</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['33'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 33
+                    </button>
                 </a>
                 <br><br>
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='34') }}">
-                    <button class="boton_menu">MESA 34</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['34'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 34
+                    </button>
                 </a>
                 
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='35') }}">
-                    <button class="boton_menu">MESA 35</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['35'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 35
+                    </button>
                 </a>
                 <br><br>
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='36') }}">
-                    <button class="boton_menu">MESA 36</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['36'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 36
+                    </button>
                 </a>
                 
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='37') }}">
-                    <button class="boton_menu">MESA 37</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['37'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 37
+                    </button>
                 </a>
                 <br><br>
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='38') }}">
-                    <button class="boton_menu">MESA 38</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['38'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 38
+                    </button>
                 </a>
                 
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='39') }}">
-                    <button class="boton_menu">MESA 39</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['39'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 39
+                    </button>
                 </a>
                 <br><br>
 
                 <a href="{{ url_for('agregar_producto_venta', zona='PISO 4', mesa='40') }}">
-                    <button class="boton_menu">MESA 40</button>
+                    <button class="boton_menu {{ 'mesa-ocupada' if estados_mesas['40'] == 'ocupada' else 'mesa-libre' }} ">
+                        MESA 40
+                    </button>
                 </a>
                 <br><br>
 
