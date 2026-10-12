@@ -402,5 +402,66 @@ def ingresar():
 
     return redirect(url_for("menu"))
 
+from datetime import datetime
+
+@app.route("/comanda/<zona>/<mesa>")
+def comanda_cocina(zona,mesa):
+    #recuperar el pedido de las mesa selecionada
+    clave_pedido = f"pedido_{zona}_{mesa}"
+    pedido = session.get(clave_pedido, [])
+
+    #evita generar una comanda vacia
+    if not pedido:
+        return "No hay productos en el pedido de esta mesa.", 400
+    cursor = conexion.cursor()
+
+    #Agrupae los productos por caategoria 
+    categorias = {}
+    for articulo in pedido:
+        cursor.execute(
+            """
+            SELECT Id_Categoria
+            FROM products
+            WHERE Id_product = %s
+            """,
+            (articulo["id"],)
+        )
+        resultado = cursor.fetchone()
+        if resultado:
+            id_categoria = resultado[0]
+            cursor.execute(
+                """
+                SELECT *
+                FROM category
+                WHERE Id_Category = %s
+                """,
+                (id_categoria,)
+            )
+            categoria = cursor.fetchone()
+            nombre_categoria = (
+                categoria[1] if categoria else "OTROS"
+            )
+            if nombre_categoria not in categorias:
+                categorias[nombre_categoria] = []
+
+            categorias[nombre_categoria].append({
+                "nombre": articulo["nombre"],
+                "cantidad": articulo["cantidad"],
+                "observaciones": articulo.get("observaciones", "") 
+            })
+
+    cursor.close()
+
+    ahora = datetime.now()
+    return render_template(
+        "comanda_cocina.html",
+        fecha=ahora.strftime("%d/%m/%Y"),
+        hora=ahora.strftime("%I:%M %p"),
+        mesa=mesa,
+        zona=zona,
+        numero_comanda=ahora.strftime("%Y%m%d%H%M%S"),
+        categorias=categorias
+    )
+
 if __name__ == "__main__":
     app.run(debug=True)

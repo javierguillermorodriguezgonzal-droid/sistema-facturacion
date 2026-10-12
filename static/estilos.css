@@ -212,3 +212,120 @@ button:hover {
 .mesa-ocupado:hover {
     background-color: #a71d2a;
 }
+
+/* configuracion general de la pagina */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: arial, sans-serif;
+    color: black;
+    background:  white;
+}
+
+/* Area de la comanda */
+
+.comanda{
+    width: 72mm;
+    margin: 0 auto;
+    padding: 3mm;
+    box-sizing: border-box;
+}
+.comanda-encabezado {
+    text-align: center;
+    border-bottom: 1px dashed black;
+    padding-bottom: 3mm;
+    margin-bottom: 3mm;
+}
+
+.comanda-encabezado h1 {
+    font-size: 16px;
+    margin: 0 0 2mm 0;
+}
+.comanda-encabezado h2 {
+    font-size: 12px;
+    margin: 0;
+}
+.comanda-informacion {
+    font-size: 11px;
+    margin-bottom: 4mm;
+}
+
+.comanda-informacion p {
+    margin: 0;
+}
+
+.comanda-informacion strong {
+    font-weight: bold;
+}
+
+.comanda-categoria { margin-bottom: 4mm;
+}
+
+.comanda-categoria h3 {
+    font-size: 13px;
+    margin: 0 0 2mm 0;
+    border-bottom: 1px solid black;
+    text-transform: uppercase;
+}
+
+.comanda-producto {
+    display: flex;
+    align-items: flex-start;
+    gap: 2mm;
+    font-size: 12px;
+    margin-bottom: 2mm;
+}
+
+.cantidad {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.nombre-producto {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+.observaciones {
+    font-size: 10px;
+    margin: 0 0 2mm 2mm;
+}
+
+@media print {
+    @page {
+        margin: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: white;
+    }
+
+    .comanda {
+        width: 72mm;
+        margin: 0;
+        padding: 3mm;
+    }
+}
+
+.mensaje-comanda {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #2e7d32;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.mensaje-comanda.visible {
+    opacity: 1;
+    visibility: visible;
+}

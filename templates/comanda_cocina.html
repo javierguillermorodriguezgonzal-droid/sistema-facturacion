@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0">
+    <title>Comanda de Cocina - Brasas de Oro</title>
+    <link rel="stylesheet" 
+          href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+    <div class="Comanda">
+
+        <header class="Comanda-encabezado">
+             <h1>BRASAS DE ORO</h1>
+             <h2>COMANDA DE COCINA</h2>
+        </header>
+        <section class="Comanda-informacion">
+            <p><strong>Fecha:</strong> {{ fecha }}</p>
+            <p><strong>Hora:</strong> {{ hora }}</p>
+            <p><strong>Mesa:</strong> {{ mesa }}</p>
+            <p><strong>Comanda N.°:</strong> {{ numero_comanda }}</p>
+        </section>
+        {% for categoria, productos in categorias.items() %}
+            <div class="comanda-categoria">
+                <h3>{{ categoria }}</h3>
+                {% for producto in productos %}
+                <div class="comanda-producto">
+                    <span class="cantidad">
+                        {{ producto.cantidad }} und
+                    </span>
+
+                    <span class="nombre-producto">
+                        {{ producto.nombre }}
+                    </span>
+                </div>
+                {% if producto.observaciones %}
+                   <p class="observaciones">
+                       observacion: {{ producto.observaciones}}
+                  </p>
+                {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+

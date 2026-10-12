@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <meta charset="UFT-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pedido - Brasas de Oro</title>
     <link rel="stylesheet" href="{{url_for('static', filename='estilos.css') }}">
@@ -67,7 +67,41 @@
     <br>
 
     <button type="button">CAMBIAR MESA</button>
-    <button type="button">IMPRIMIR EN COCINA</button>
+    <button
+        type="button"
+        onclick="abrirComanda()">
+        IMPRIMIR EN COCINA
+    </button>
+    <div id="mensaje-comanda" class="mensaje-comanda">
+        PEDIDO ENVIADO EXITOSAMENTE
+    </div>
+    <script>
+        function abrirComanda() {
+            const url = {{ url_for(
+                'comanda_cocina',
+                zona=zona,
+                mesa=mesa
+            ) | tojson }};
+
+             window.open(url, "_blank");
+        }
+    </script>
+    <Script>
+    window.addEventListener("message", function(event) {
+    if (event.origin !== window.location.origin) {
+        return;
+    }
+
+    if (event.data === "comanda-generada") {
+        const mensaje = document.getElementById("mensaje-comanda");
+        mensaje.classList.add("visible");
+
+        setTimeout(function() {
+            mensaje.classList.remove("visible");
+        }, 3000);
+    }
+});
+      </script>
     <button type="button">ELIMINAR PRODUCTO</button>
     <br><br>
     <a href="factura.html">
