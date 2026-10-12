@@ -278,6 +278,9 @@ def agregar_producto_venta(zona, mesa):
     clave_pedido = f"pedido_{zona}_{mesa}"
     pedido = session.get(clave_pedido, [])
 
+    clave_pendiente = f"pedido_pendiente_{zona}_{mesa}"
+    pendientes = session.get(clave_pendiente, [])
+
     categoria_seleccionada = request.values.get("categoria", "")
 
     # Si se pulsa un producto, lo agregamos al pedido
@@ -317,7 +320,26 @@ def agregar_producto_venta(zona, mesa):
                         "cantidad": cantidad
                     })
 
+                #guardar el pedido completo de la mesa
                 session[clave_pedido] = pedido
+
+                #registrar las unidades nuevas para cocina
+                pendiente_encontrado = False
+
+                for articulo_pendiente in pendientes:
+                    if articulo_pendiente["id"] == producto[0]:
+                        articulo_pendiente["cantidad"] += cantidad
+                        pendiente_encontrado = True
+                        break
+
+                if not pendiente_encontrado:
+                    pendientes.append({
+                        "id": producto[0],
+                        "nombre": producto[1],
+                        "cantidad": cantidad,
+                        "observaciones": ""
+                    })
+                session[clave_pendiente] = pendientes
                 session.modified = True
 
     # Consultar las categorías
@@ -409,15 +431,18 @@ def comanda_cocina(zona,mesa):
     #recuperar el pedido de las mesa selecionada
     clave_pedido = f"pedido_{zona}_{mesa}"
     pedido = session.get(clave_pedido, [])
+    #recuperar los productos pendientes de la mesa 
+    clave_pendiente = f"pedido_pendiente_{zona}_{mesa}"
+    pendientes = session.get(clave_pendiente, [])
 
     #evita generar una comanda vacia
-    if not pedido:
+    if not pendientes:
         return "No hay productos en el pedido de esta mesa.", 400
     cursor = conexion.cursor()
 
     #Agrupae los productos por caategoria 
     categorias = {}
-    for articulo in pedido:
+    for articulo in pendientes:
         cursor.execute(
             """
             SELECT Id_Categoria
@@ -453,7 +478,7 @@ def comanda_cocina(zona,mesa):
     cursor.close()
 
     ahora = datetime.now()
-    return render_template(
+    comanda_html = render_template(
         "comanda_cocina.html",
         fecha=ahora.strftime("%d/%m/%Y"),
         hora=ahora.strftime("%I:%M %p"),
@@ -462,6 +487,12 @@ def comanda_cocina(zona,mesa):
         numero_comanda=ahora.strftime("%Y%m%d%H%M%S"),
         categorias=categorias
     )
+    #marca los productos pendientes como enviados
+    session[clave_pendiente] = []
+    session.modified = True
+
+    return comanda_html
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
