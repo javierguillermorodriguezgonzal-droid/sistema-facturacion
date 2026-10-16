@@ -292,6 +292,7 @@ def agregar_producto_venta(zona, mesa):
 
         if cantidad > 0:
             id_producto = request.form.get("product_id")
+            observaciones = request.form.get("observaciones", "").strip() 
 
             cursor.execute(
                 """
@@ -307,7 +308,10 @@ def agregar_producto_venta(zona, mesa):
                 encontrado = False
 
                 for articulo in pedido:
-                    if articulo["id"] == producto[0]:
+                    if (
+                        articulo["id"] == producto[0]
+                        and articulo.get("observaciones", "") == observaciones
+                    ):
                         articulo["cantidad"] += cantidad
                         encontrado = True
                         break
@@ -317,7 +321,8 @@ def agregar_producto_venta(zona, mesa):
                         "id": producto[0],
                         "nombre": producto[1],
                         "precio": float(producto[2]),
-                        "cantidad": cantidad
+                        "cantidad": cantidad,
+                        "observaciones": observaciones
                     })
 
                 #guardar el pedido completo de la mesa
@@ -327,8 +332,12 @@ def agregar_producto_venta(zona, mesa):
                 pendiente_encontrado = False
 
                 for articulo_pendiente in pendientes:
-                    if articulo_pendiente["id"] == producto[0]:
+                    if (
+                        articulo_pendiente["id"] == producto[0]
+                        and articulo_pendiente.get("observaciones", "") == observaciones
+                    ):
                         articulo_pendiente["cantidad"] += cantidad
+                        articulo_pendiente["observaciones"] += observaciones
                         pendiente_encontrado = True
                         break
 
@@ -337,7 +346,7 @@ def agregar_producto_venta(zona, mesa):
                         "id": producto[0],
                         "nombre": producto[1],
                         "cantidad": cantidad,
-                        "observaciones": ""
+                        "observaciones": observaciones
                     })
                 session[clave_pendiente] = pendientes
                 session.modified = True
