@@ -57,14 +57,25 @@
     </form>
     <h2>PEDIDO ACTUAL</h2>
     {% if pedido %}
+    <form method="POST">
+        <input type="hidden" name="categoria"
+        value="{{ categoria_seleccionada }}">
         {% for articulo in pedido %}
              <p>
               {{ articulo.nombre}}
               - cantidad: {{ articulo.cantidad }}
               - Precio unitario: ${{ "%.2f"|format(articulo.precio) }}
               - subtotal: ${{ "%.2f"|format(articulo.precio*articulo.cantidad) }}
-             </p>
+             <input type="radio"
+                    name="indice_eliminar"
+                    value="{{ loop.index0}}"
+                    required>
+            </p>
         {% endfor %}
+        <button type="submit" name="eliminar_producto" value="1">
+            ELIMINAR PRODUCTO SELECCIONADO
+        </button>
+    </form>
     {% else %}
          <p>Aun no hay productos en este producto.</p>
     {% endif %}
@@ -107,8 +118,6 @@
     }
 });
       </script>
-    <button type="button">ELIMINAR PRODUCTO</button>
-    <br><br>
     <a href="factura.html">
     <button type="button" class="factura">FACTURAR</button>
     </a>
