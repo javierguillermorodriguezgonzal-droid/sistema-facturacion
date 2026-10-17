@@ -63,6 +63,9 @@
         {% for articulo in pedido %}
              <p>
               {{ articulo.nombre}}
+              {% if articulo.observaciones %}
+                  - Observaciones: {{ articulo.observaciones }}
+              {% endif %}
               - cantidad: {{ articulo.cantidad }}
               - Precio unitario: ${{ "%.2f"|format(articulo.precio) }}
               - subtotal: ${{ "%.2f"|format(articulo.precio*articulo.cantidad) }}

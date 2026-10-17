@@ -282,6 +282,52 @@ def agregar_producto_venta(zona, mesa):
     pendientes = session.get(clave_pendiente, [])
 
     categoria_seleccionada = request.values.get("categoria", "")
+    
+#eliminar unidades que sigue pendientes de cocina
+    if request.method == "POST" and request.form.get("eliminar_producto"):
+        try:
+            indice_eliminar = int(request.form.get("indice_eliminar"))
+
+            if 0 <= indice_eliminar < len(pedido):
+                articulo = pedido[indice_eliminar]
+                articulo_pendiente_encontrado = None
+
+                for articulo_pendiente in pendientes:
+                    if(
+                        articulo_pendiente["id"] == articulo["id"]
+                        and articulo_pendiente.get("observaciones", "")
+                        == articulo.get("observaciones", "")
+                    ):
+                        articulo_pendiente_encontrado = articulo_pendiente
+                        break
+                if articulo_pendiente_encontrado:
+                    cantidad_a_quitar = min(
+                        articulo["cantidad"],
+                        articulo_pendiente_encontrado["cantidad"]
+                    )
+
+                    articulo["cantidad"] -= cantidad_a_quitar
+                    articulo_pendiente_encontrado["cantidad"] -= cantidad_a_quitar
+
+                    if articulo_pendiente_encontrado["cantidad"] <= 0:
+                        pendientes.remove(articulo_pendiente_encontrado)
+
+                    if articulo["cantidad"] <= 0:
+                        pedido.pop(indice_eliminar)
+
+                    session[clave_pedido] = pedido
+                    session[clave_pendiente] = pendientes
+                    session.modified = True
+
+                    print("unidades pendientes eliminadas", cantidad_a_quitar)
+                else:
+                    print("producto enviado a cocina: requiere autorizacion.")
+            else:
+                print("Error: posicion fuera del pedido")
+        except (ValueError, TypeError):
+            print("Error: posicion no valida.")
+
+
 
     # Si se pulsa un producto, lo agregamos al pedido
     if request.method == "POST" and request.form.get("product_id"):
@@ -337,7 +383,6 @@ def agregar_producto_venta(zona, mesa):
                         and articulo_pendiente.get("observaciones", "") == observaciones
                     ):
                         articulo_pendiente["cantidad"] += cantidad
-                        articulo_pendiente["observaciones"] += observaciones
                         pendiente_encontrado = True
                         break
 
