@@ -94,6 +94,27 @@
     <div id="mensaje-comanda" class="mensaje-comanda">
         PEDIDO ENVIADO EXITOSAMENTE
     </div>
+    <div id="popup-autorizacion" class="popup-fondo">
+        <div class="popup-contenido">
+            <h2>AUTORIZAR ELIMINACION</h2>
+            <p> Este producto ya fue enviado a cocina.</p>
+            <p>Ingresar la clave para continuar</p>
+            <input 
+            type="password"
+            id="Clave-autorizacion"
+            placeholder="Clave de autorizacion"
+            >
+            
+            <button type="button" onclick="autprizarEliminacion()">
+                AUTORIZAR
+            </button>
+            <button type="button" onclick="cerrarAutorizacion()">
+                 CANCELAR
+                </button>
+                <p id="error-autorizadp"></p>
+        </div>
+    </div>
+
     <script>
         function abrirComanda() {
             const url = {{ url_for(

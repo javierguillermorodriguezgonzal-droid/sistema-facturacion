@@ -188,4 +188,43 @@ button:hover {
     transition: all 0.3s ease;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
+.mensaje-comanda.visible {
+    opacity: 1;
+    visibility: visible;
+}
+/* Ventana emergente para autorizar la eliminacion */
+.popup-fondo{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+.popup-contenido {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+}
+.popup-conternido input {
+    width: 100%;
+    margin: 12px 0;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.popup-contenido button {
+    margin: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#error-autorizacion {
+    color: red;
+    font-weight: bold;
+}
 }
