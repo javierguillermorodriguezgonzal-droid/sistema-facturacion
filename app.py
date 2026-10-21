@@ -282,6 +282,7 @@ def agregar_producto_venta(zona, mesa):
     pendientes = session.get(clave_pendiente, [])
 
     categoria_seleccionada = request.values.get("categoria", "")
+    mostrar_autorizacion = False
     
 #eliminar unidades que sigue pendientes de cocina
     if request.method == "POST" and request.form.get("eliminar_producto"):
