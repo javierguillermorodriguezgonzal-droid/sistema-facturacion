@@ -283,6 +283,48 @@ def agregar_producto_venta(zona, mesa):
 
     categoria_seleccionada = request.values.get("categoria", "")
     mostrar_autorizacion = False
+    indice_autorizacion = None
+    error-autorizacion = "" 
+    #Validar la autorizacion para eliminar productos enviados a cocina
+    if request.method == "POST" and request.form.get("autorizar_eliminacion"):
+        try:
+            indice_autorizacion = int(request.form.get("indice_autorizacion"))
+            clave_ingresada = request.form.get("clave_autorizacion", "")
+
+            if clave_ingresada == "1234567890":
+                if 0 <= indice_autorizacion < len(pedido):
+                    articulo = pedido[indice_autorizacion]
+                    articulo_pendiente_encontrado = None
+
+                    for articulo_pendiente in pendientes:
+                        if (
+                            articulo_pendiente["id"] == articulo["id"]
+                            and articulo_pendiente.get("observaciones", "")
+                            == articulo.get("observaciones", "")
+                        ):
+                            articulo_pendiente_encontrado = articulo_pendiente
+                            break
+                    if articulo_pendiente_encontrado is None:
+                        pedido.pop(indice_autorizacion)
+                        session[clave_pedido] = pedido
+                        session.modified = True
+
+                    else:
+                        mostrar_autorizacion = True
+                        error_autorizacion = (
+                            "Este producto aun esta pendiente de cocina."
+                            )
+                else:
+                    mostrar_autorizacion = True
+                    error_autorizacion = (
+                        "el producto seleecionado no es valido."
+                        )
+            else:
+                mostrar_autorizacion = True
+                error_autorizacion = "Clave incorrecta."
+        except (ValueError, TypeError):
+            error_autorizacion = "No se pudo validar la solicitud."
+
     
 #eliminar unidades que sigue pendientes de cocina
     if request.method == "POST" and request.form.get("eliminar_producto"):
@@ -322,7 +364,8 @@ def agregar_producto_venta(zona, mesa):
 
                     print("unidades pendientes eliminadas", cantidad_a_quitar)
                 else:
-                    print("producto enviado a cocina: requiere autorizacion.")
+                    mostrar_autorizacion = True
+                    indice_autorizacion = indice_eliminar
             else:
                 print("Error: posicion fuera del pedido")
         except (ValueError, TypeError):
@@ -434,7 +477,10 @@ def agregar_producto_venta(zona, mesa):
         productos=productos,
         categoria_seleccionada=categoria_seleccionada,
         pedido=pedido,
-        total=total
+        total=total,
+        mostrar_autorizacion=mostrar_autorizacion,
+        indice_autorizacion=indice_autorizacion,
+        error_autorizacion=error_autorizacion
     )
 @app.route("/clientes")
 def clientes():

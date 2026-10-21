@@ -94,24 +94,36 @@
     <div id="mensaje-comanda" class="mensaje-comanda">
         PEDIDO ENVIADO EXITOSAMENTE
     </div>
-    <div id="popup-autorizacion" class="popup-fondo">
+    <div id="popup-autorizacion" class="popup-fondo"
+        {% if mostrar_autorizacion %}style="display: flex;"{% endif %}>
         <div class="popup-contenido">
+            <form method="POST">
             <h2>AUTORIZAR ELIMINACION</h2>
             <p> Este producto ya fue enviado a cocina.</p>
             <p>Ingresar la clave para continuar</p>
+            <input type="hidden"
+            name="indice_autorizacion"
+            value="{{ indice_autorizacion}}"
+            >
             <input 
+            type="hidden"
+            name="autorizar_eliminacion"
+            value="1"
+            >
+            <input
             type="password"
             id="clave-autorizacion"
-            placeholder="Clave de autorizacion"
-            >
-            
-            <button type="button" onclick="auturizarEliminacion()">
+            name="clave_autorizacion" 
+            placeholder="Clave de autorizacion"        
+            >   
+            <button type="submit">
                 AUTORIZAR
             </button>
             <button type="button" onclick="cerrarAutorizacion()">
                  CANCELAR
                 </button>
-                <p id="error-autorizadp"></p>
+                <p id="error-autorizacion">{{ error-autorizacion }}</p>
+            </form>
         </div>
     </div>
 
