@@ -284,7 +284,7 @@ def agregar_producto_venta(zona, mesa):
     categoria_seleccionada = request.values.get("categoria", "")
     mostrar_autorizacion = False
     indice_autorizacion = None
-    error-autorizacion = "" 
+    error_autorizacion = "" 
     #Validar la autorizacion para eliminar productos enviados a cocina
     if request.method == "POST" and request.form.get("autorizar_eliminacion"):
         try:
@@ -323,11 +323,16 @@ def agregar_producto_venta(zona, mesa):
                 mostrar_autorizacion = True
                 error_autorizacion = "Clave incorrecta."
         except (ValueError, TypeError):
+            mostrar_autorizacion = True
             error_autorizacion = "No se pudo validar la solicitud."
 
     
 #eliminar unidades que sigue pendientes de cocina
-    if request.method == "POST" and request.form.get("eliminar_producto"):
+    if (
+        request.method == "POST" 
+        and request.form.get("eliminar_producto")
+        and not request.form.get("autorizar_eliminacion")
+    ):
         try:
             indice_eliminar = int(request.form.get("indice_eliminar"))
 
