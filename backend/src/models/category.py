@@ -2,9 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class category(db.Model):
+class Category(db.Model):
     __tablename__ = "category"
 
-    id_Category = db.column(db.integer,primary_key=True)
-    name = db.column(db.string(150, nullable=False))
+    Id_Category = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(150), nullable=False)
     
