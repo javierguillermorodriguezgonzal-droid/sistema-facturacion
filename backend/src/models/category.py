@@ -5,6 +5,6 @@ db = SQLAlchemy()
 class Category(db.Model):
     __tablename__ = "category"
 
-    Id_Category = db.Column(db.Integer,primary_key=True)
+    Id_Category = db.Column(db.Integer,primary_key=True, autoincrement=True)
     name = db.Column(db.String(150), nullable=False)
     

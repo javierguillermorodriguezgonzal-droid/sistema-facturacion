@@ -1,9 +1,9 @@
 from .category import db
 
-class Person(db.model):
+class Person(db.Model):
     __tablename__ = "person"
 
-    id_Person = db.Column(db.Integer, primary_key=True)
+    id_Person = db.Column(db.Integer, primary_key=True, autoincrement=True)
     company = db.Column(db.String(45), nullable=True)
     Identification = db.Column(db.String(45), nullable=False, unique=True)
     Name = db.Column(db.String(450), nullable=False)
