@@ -5,7 +5,7 @@ class Company(db.Model):
 
     id_company = db.Column(
         db.Integer,
-        primay_key=True,
+        primary_key=True,
         autoincrement=True
     )
     Nit = db.Column(
