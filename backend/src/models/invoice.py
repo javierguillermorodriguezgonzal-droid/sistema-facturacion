@@ -14,7 +14,7 @@ class Invoice(db.Model):
         db.Foreinkey("person.id_person"), 
         nullable=False
         )
-    id_Company = db.Column(
+    Id_Company = db.Column(
         db.Integer,
         db.Foreinkey("company.id_company"),
         nullable=False
