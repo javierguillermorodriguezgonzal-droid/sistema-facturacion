@@ -1,4 +1,4 @@
-from .extensions import db
+from ..extensions import db
 from sqlalchemy.dialects.mysql import TINYINT
 
 class Invoice(db.Model):
