@@ -13,7 +13,7 @@ class Invoice_products(db.Model):
         primary_key=True
     )
     Unit_value = db.Column(
-        "Unit value"
+        "Unit value",
         db.Numeric(10, 2),
         nullable=False
     )

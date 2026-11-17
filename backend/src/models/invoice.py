@@ -11,7 +11,7 @@ class Invoice(db.Model):
         )
     Id_person = db.Column(
         db.Integer,
-        db.Foreinkey("person.id_person"), 
+        db.Foreinkey("person.id_Person"), 
         nullable=False
         )
     Id_company = db.Column(
@@ -21,7 +21,7 @@ class Invoice(db.Model):
     )
     Id_payment_method = db.Column(
         TINYINT,
-        db.Foreinkey("payment_method.id_Payment_method"),
+        db.Foreignkey("payment_method.id_Payment_method"),
         nullable=False
     )
     Date = db.Column(db.Date, nullable=False)
