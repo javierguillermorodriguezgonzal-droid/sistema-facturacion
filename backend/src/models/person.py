@@ -1,4 +1,4 @@
-from .category import db
+from .extensions import db
 
 class Person(db.Model):
     __tablename__ = "person"

@@ -1,4 +1,4 @@
-from .category import db
+from .extensions import db
 
 class Supplier_has_products(db.Model):
     __tablename__ = "supplier_has_products"
