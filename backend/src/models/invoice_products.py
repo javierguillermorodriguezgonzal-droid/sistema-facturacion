@@ -3,19 +3,21 @@ from .category import db
 class Invoice_products(db.Model):
     __tablename__ = "invoice_products"
 
-    Invoice_id_invoice = db.Column(
-        db.BigInterger,
-        db.ForeignKey("Invoice.id_invoice"),
-        nullable=False
+    id_invoice = db.Column(
+        db.BigInteger,
+        db.ForeignKey("invoice.id_invoice"),
+        primary_key=True
     )
-    Products_Id_producto = db.Column(
+    Id_product = db.Column(
         db.Integer,
-        db.Foreignkey("Products.Id_product"),
+        primary_key=True
+    )
+    Unit_value = db.Column(
+        "Unit value"
+        db.Numeric(10, 2),
         nullable=False
     )
-    __table_args__ = (
-        db.PrimarykeyConstraint(
-            "Invoice.id_invoice",
-            "Products_Id_producto"
-        ),
+    Amount = db.Column(
+        db.SmallInteger,
+        nullable=False
     )

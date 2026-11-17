@@ -5,27 +5,27 @@ class Invoice(db.Model):
     __tablename__ = "invoice"
     
     id_invoice = db.Column(
-        db.BigInterger,
+        db.BigInteger,
         primary_key=True, 
         autoincrement=True
         )
     Id_person = db.Column(
-        db.Interger,
+        db.Integer,
         db.Foreinkey("person.id_person"), 
         nullable=False
         )
-    Id_Company = db.Column(
+    Id_company = db.Column(
         db.Integer,
-        db.Foreinkey("company.id_company"),
+        db.Foreignkey("company.id_company"),
         nullable=False
     )
     Id_payment_method = db.Column(
         TINYINT,
-        db.Foreinkey("payment_method.id_payment_method"),
+        db.Foreinkey("payment_method.id_Payment_method"),
         nullable=False
     )
     Date = db.Column(db.Date, nullable=False)
-    Hour = db.Column(db.Hour, nullable=False)
+    Hour = db.Column(db.Time, nullable=False)
 
     Sub_total = db.Column(db.Numeric(10, 2), nullable=False)
     total = db.Column(db.Numeric(10, 2), nullable=False)

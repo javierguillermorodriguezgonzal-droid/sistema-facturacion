@@ -10,11 +10,11 @@ class Supplier_has_products(db.Model):
     )
     Products_Id_producto = db.Column(
         db.Integer,
-        db.Foreignkey("Products.Id_product"),
+        db.ForeignKey("products.Id_product"),
         nullable=False
     )
     __table_args__ = (
-        db.PrimarykeyConstraint(
+        db.PrimaryKeyConstraint(
             "Supplier_id_supplier",
             "Products_Id_producto"
         ),
