@@ -1,7 +1,7 @@
 from .category import db
 
 class Company(db.Model):
-    __tablename___ = "company"
+    __tablename__ = "company"
 
     id_company = db.Column(
         db.Integer,
