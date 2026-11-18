@@ -1,8 +1,24 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 
+from backend.src.extensions import db 
+from backend.src import models
+from sqlalchemy import text
 
 app = Flask(__name__)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    "mysql+mysqlconnector://root:123456@localhost/sistema_facturacion_flask"
+)
+
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app)
+
+with app.app_context():
+    db.session.execute(text("SELECT 1"))
+    print("CONEXION SQLALCHEMY EXITOSA")
+
 app.secret_key = "brasas_de_oro_clave_local"
 
 conexion =  mysql.connector.connect(
