@@ -29,7 +29,7 @@ class Invoice(db.Model):
     Date = db.Column(db.Date, nullable=False)
     Hour = db.Column(db.Time, nullable=False)
     invoice_products = db.relationship(
-        "Invoice_product",
+        "Invoice_products",
         back_populates="invoice"
     )
 
