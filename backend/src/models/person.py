@@ -3,7 +3,14 @@ from ..extensions import db
 class Person(db.Model):
     __tablename__ = "person"
 
-    id_Person = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_Person = db.Column(
+        db.Integer,
+        primary_key=True,
+        autoincrement=True)
+    invoices = db.relationship(
+        "Invoice",
+        back_populates="person"
+    )
     company = db.Column(db.String(45), nullable=True)
     Identification = db.Column(db.String(45), nullable=False, unique=True)
     Name = db.Column(db.String(450), nullable=False)

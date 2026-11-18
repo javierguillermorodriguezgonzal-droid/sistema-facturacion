@@ -8,6 +8,10 @@ class Invoice_products(db.Model):
         db.ForeignKey("invoice.id_invoice"),
         primary_key=True
     )
+    invoices = db.relationship(
+        "Invoice",
+        back_populates="invoice_products"
+    )
     Id_product = db.Column(
         db.Integer,
         primary_key=True

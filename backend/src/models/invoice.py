@@ -12,8 +12,10 @@ class Invoice(db.Model):
     Id_person = db.Column(
         db.Integer,
         db.ForeignKey("person.id_Person"), 
+
         nullable=False
         )
+    person = db.relationship("Person", back_populates="invoices")
     Id_company = db.Column(
         db.Integer,
         db.ForeignKey("company.id_company"),
@@ -26,6 +28,10 @@ class Invoice(db.Model):
     )
     Date = db.Column(db.Date, nullable=False)
     Hour = db.Column(db.Time, nullable=False)
+    invoice_products = db.relationship(
+        "Invoice_product",
+        back_populates="invoice"
+    )
 
     Sub_total = db.Column(db.Numeric(10, 2), nullable=False)
     total = db.Column(db.Numeric(10, 2), nullable=False)
