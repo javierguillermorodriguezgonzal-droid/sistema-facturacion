@@ -9,6 +9,10 @@ class Product(db.Model):
         db.ForeignKey("category.Id_Category"),
         nullable=False
     )
+    category = db.Column(
+        "Category",
+        back_populates="products"
+    )
     Product_code = db.Column(db.String(50), nullable=False, unique=True)
     name = db.Column(db.String(45), nullable=False)
     Description = db.Column(db.String(250), nullable=False)
