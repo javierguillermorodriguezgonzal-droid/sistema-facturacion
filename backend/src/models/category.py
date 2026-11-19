@@ -9,7 +9,7 @@ class Category(db.Model):
         autoincrement=True
         )
     name = db.Column(db.String(150), nullable=False)
-    Product = db.relationship(
+    Products = db.relationship(
         "Product",
         back_populates="category"
     )

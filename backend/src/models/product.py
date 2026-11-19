@@ -3,13 +3,21 @@ from ..extensions import db
 class Product(db.Model):
     __tablename__ = "products"
     
-    Id_product = db.Column(db.Integer,primary_key=True, autoincrement=True)
+    Id_product = db.Column(
+        db.Integer,
+        primary_key=True,
+        autoincrement=True
+    )
     Id_Categoria = db.Column(
         db.Integer,
         db.ForeignKey("category.Id_Category"),
         nullable=False
     )
-    category = db.Column(
+    invoice_products = db.relationship(
+        "Invoice_products",
+        back_populates="product"
+    )
+    category = db.relationship(
         "Category",
         back_populates="products"
     )

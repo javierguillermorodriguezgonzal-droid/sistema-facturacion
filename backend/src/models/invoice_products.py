@@ -14,8 +14,12 @@ class Invoice_products(db.Model):
     )
     Id_product = db.Column(
         db.Integer,
-        db.ForenignKey("products.Id_product"),
+        db.ForeignKey("products.Id_product"),
         primary_key=True
+    )
+    product = db.relationship(
+        "Product",
+        back_populates="invoice_products"
     )
     Unit_value = db.Column(
         "Unit value",
