@@ -548,6 +548,19 @@ def ingresar():
 
 from datetime import datetime
 
+
+@app.route("/prueba-productos")
+def prueba_productos():
+    productos = models.product.query.fliter(
+        models.Product.Stock > 0
+    ).all()
+
+    for producto in productos:
+        print(producto.name)
+
+    return "Consulta ejecutada correctamente"
+
+
 @app.route("/comanda/<zona>/<mesa>")
 def comanda_cocina(zona,mesa):
     #recuperar el pedido de las mesa selecionada
