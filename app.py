@@ -551,14 +551,14 @@ from datetime import datetime
 
 @app.route("/prueba-productos")
 def prueba_productos():
-    productos = models.product.query.fliter(
+    productos_bode = models.Product.query.filter(
         models.Product.Stock > 0
     ).all()
 
-    for producto in productos:
-        print(producto.name)
-
-    return "Consulta ejecutada correctamente"
+    return render_template(
+        "productos_1.html",
+        productos=productos_bode
+    )
 
 
 @app.route("/comanda/<zona>/<mesa>")
