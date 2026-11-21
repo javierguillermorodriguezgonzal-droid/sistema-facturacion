@@ -10,7 +10,14 @@
     <h1>Productos disponibles</h1>
 
     {% for producto in productos %}
-       <p>{{ producto.name }}</p>
+
+       <div>
+
+            <p>Producto: {{ producto.name }}</p>
+            <p>Precio: {{ producto.Selling_price }}</p>
+            <p>Stock: {{ producto.Stock }}</p>
+
+        </div>
     {% endfor %}
 
 </body>
