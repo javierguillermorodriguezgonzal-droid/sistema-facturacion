@@ -288,7 +288,7 @@ def rokola():
 
 @app.route("/pedido/<zona>/<mesa>", methods=["GET", "POST"])
 def agregar_producto_venta(zona, mesa):
-    cursor = conexion.cursor()
+
 
     # Cada mesa tendrá su propio pedido
     clave_pedido = f"pedido_{zona}_{mesa}"
@@ -403,24 +403,16 @@ def agregar_producto_venta(zona, mesa):
 
         if cantidad > 0:
             id_producto = request.form.get("product_id")
-            observaciones = request.form.get("observaciones", "").strip() 
+            observaciones = request.form.get("observaciones", "").strip()
 
-            cursor.execute(
-                """
-                SELECT Id_product, name, Selling_price
-                FROM products
-                WHERE Id_product = %s
-                """,
-                (id_producto,)
-            )
-            producto = cursor.fetchone()
+            producto = models.Product.query.get(id_producto)
 
             if producto:
                 encontrado = False
 
                 for articulo in pedido:
                     if (
-                        articulo["id"] == producto[0]
+                        articulo["id"] == producto.Id_product
                         and articulo.get("observaciones", "") == observaciones
                     ):
                         articulo["cantidad"] += cantidad
@@ -429,9 +421,9 @@ def agregar_producto_venta(zona, mesa):
 
                 if not encontrado:
                     pedido.append({
-                        "id": producto[0],
-                        "nombre": producto[1],
-                        "precio": float(producto[2]),
+                        "id": producto.Id_product,
+                        "nombre": producto.name,
+                        "precio": float(producto.Selling_price),
                         "cantidad": cantidad,
                         "observaciones": observaciones
                     })
@@ -444,7 +436,7 @@ def agregar_producto_venta(zona, mesa):
 
                 for articulo_pendiente in pendientes:
                     if (
-                        articulo_pendiente["id"] == producto[0]
+                        articulo_pendiente["id"] == producto.Id_product
                         and articulo_pendiente.get("observaciones", "") == observaciones
                     ):
                         articulo_pendiente["cantidad"] += cantidad
@@ -453,8 +445,8 @@ def agregar_producto_venta(zona, mesa):
 
                 if not pendiente_encontrado:
                     pendientes.append({
-                        "id": producto[0],
-                        "nombre": producto[1],
+                        "id": producto.Id_product,
+                        "nombre": producto.name,
                         "cantidad": cantidad,
                         "observaciones": observaciones
                     })
@@ -462,27 +454,20 @@ def agregar_producto_venta(zona, mesa):
                 session.modified = True
 
     # Consultar las categorías
-    cursor.execute(
-        "SELECT * FROM category ORDER BY Id_Category"
-    )
-    categorias = cursor.fetchall()
+    categorias = models.Category.query.order_by(
+        models.Category.Id_Category
+    ).all()
 
     # Consultar los productos de la categoría elegida
     productos = []
 
     if categoria_seleccionada:
-        cursor.execute(
-            """
-            SELECT Id_product, name, Selling_price
-            FROM products
-            WHERE Id_Categoria = %s
-            ORDER BY name
-            """,
-            (categoria_seleccionada,)
-        )
-        productos = cursor.fetchall()
+        productos = models.Product.query.filter(
+            models.Product.Id_Categoria == categoria_seleccionada
+        ).order_by(
+            models.Product.name
+        ).all()
 
-    cursor.close()
 
     # Calcular el total del pedido
     total = sum(
@@ -551,14 +536,15 @@ from datetime import datetime
 
 @app.route("/prueba-productos")
 def prueba_productos():
-    productos_bode = models.Product.query.filter(
+    productos = models.product.query.fliter(
         models.Product.Stock > 0
     ).all()
 
-    return render_template(
-        "productos_1.html",
-        productos=productos_bode
-    )
+    for producto in productos:
+        print(producto.name)
+        print(producto.Selling_price)
+
+    return "Consulta ejecutada correctamente"
 
 
 @app.route("/comanda/<zona>/<mesa>")

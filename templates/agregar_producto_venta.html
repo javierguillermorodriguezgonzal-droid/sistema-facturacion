@@ -21,9 +21,9 @@
         <select name="categoria" onchange="this.form.submit()">
           <option value="">SELECCIONE UNA CATEGORIA</option>
           {% for categoria in categorias %}
-           <option value="{{ categoria[0] }}"
-            {% if categoria[0]|string == categoria_seleccionada|string %}selected{% endif %}>
-            {{ categoria[1] }}
+           <option value="{{ categoria.Id_Categoria }}"
+            {% if categoria.Id_Ctayegory|string == categoria_seleccionada|string %}selected{% endif %}>
+            {{ categoria.name }}
            </option>
           {% endfor %}
         </select>
@@ -44,8 +44,8 @@
                   type="submit"
                   class="boton_menu"
                   name="product_id"
-                  value="{{ producto[0] }}">
-                  {{producto[1] }} - ${{ producto[2] }}
+                  value="{{ producto.Id_producto }}">
+                  {{ roducto.name }} - ${{ producto.Selling_price }}
               </button>
           {% endfor %}
       {% elif categoria_seleccionada %}
@@ -129,7 +129,7 @@
 
     <script>
         function abrirComanda() {
-            const url = {{ url_for(
+            const url = {{ url_for (
                 'comanda_cocina',
                 zona=zona,
                 mesa=mesa
