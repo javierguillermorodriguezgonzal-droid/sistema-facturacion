@@ -21,7 +21,7 @@
         <select name="categoria" onchange="this.form.submit()">
           <option value="">SELECCIONE UNA CATEGORIA</option>
           {% for categoria in categorias %}
-           <option value="{{ categoria.Id_Categoria }}"
+           <option value="{{ categoria.Id_Category }}"
             {% if categoria.Id_Category|string == categoria_seleccionada|string %}selected{% endif %}>
             {{ categoria.name }}
            </option>
@@ -45,7 +45,7 @@
                   class="boton_menu"
                   name="product_id"
                   value="{{ producto.Id_product }}">
-                  {{ Producto.name }} - ${{ producto.Selling_price }}
+                  {{ producto.name }} - ${{ producto.Selling_price }}
               </button>
           {% endfor %}
       {% elif categoria_seleccionada %}
