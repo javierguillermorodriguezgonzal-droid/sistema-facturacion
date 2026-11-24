@@ -508,13 +508,30 @@ def editar_cliente():
 def eliminar_cliente():
     return render_template("eliminar_cliente.html")
 
+#facturacion REALIZAR FACTURACION
+
+@app.route("/factura/<zona>/<mesa>")
+def factura(zona,mesa):
+
+    clave_pedido = f"pedido_{zona}_{mesa}"
+
+    pedido = session.get(clave_pedido, [])
+    subtotal = sum(
+        articulo["precio"] * articulo ["cantidad"]
+        for articulo in pedido
+    )
+
+    return render_template(
+        "factura.html",
+        zona=zona,
+        mesa=mesa,
+        pedido=pedido,
+        subtotal=subtotal
+    )
+
 @app.route("/ventas")
 def ventas():
     return render_template("ventas.html")
-
-@app.route("/nueva_venta")
-def nueva_venta():
-    return render_template("nueva_venta.html")
 
 @app.route("/consultar_ventas")
 def consultar_ventas():

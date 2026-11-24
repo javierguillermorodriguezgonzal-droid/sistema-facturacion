@@ -7,6 +7,9 @@
 <body>
     <div class="contenedor">
     <h1>FACTURA DE VENTA</h1>
+    <p><strong>Fecha:</strong> {{ fecha }}</p>
+    <p><strong>Hora:</strong> {{ hora }}</p>
+    <p><strong>Mesa:</strong> {{ mesa }}</p>
     <h2>Informacion de cliente</h2>
     <label>Nombre del cliente:</label>
         <br>
@@ -30,20 +33,40 @@
         <input type="text" readonly>
         <br>
         <label>PRODUCTOS</label>
-        <br>
-        <input type="text" readonly name="PRODUCTOS">
-        <br>
+         {% for articulo in pedido %}
+         <p>
+            {{ articulo["nombre"]}}
+            -
+            Cantidad: {{articulo["cantidad"] }}
+            -
+            Precio: ${{ articulo["precio"]}}
+         </p>
+         {% endfor %}
+        <br> 
         <label>SUB-TOTAL:</label>
         <br>
-        <input type="number" readonly>
+        <input
+           type="number"
+           readonly
+           value="{{ subtotal }}"
+        >
         <br>
-        <label>Propina voluntaria del 10%:</label>
+        <label>Propina voluntaria:</label>
         <br>
-        <input type="number">
+        <input type="number"
+            id="propina"
+            min="0"
+            placeholder="Ingrese la Propina"
+        >
         <br>
         <label>TOTAL:</label>
         <br>
-        <input type="number" readonly>
+        <input 
+            type="number"
+            id="total"
+            readonly
+            >
+        <br>
         <h2>Metodo de pago</h2>
         <br>
         <select>
@@ -58,12 +81,19 @@
         <button class="boton_menu_continuar">FACTURAR</button>
         </a>
         <br><br>
-        <a href="agregar_producto_venta.html">
-            <button class="boton_menu-volver">Cancelar</button>
-        </a>
-        <a href="nueva_venta.html">
-            <button class="boton_menu-volver">Volver a Nueva venta</button>
+        <a href="mesas.html">
+            <button class="boton_menu-volver">VOLVER A MESAS</button>
         </a>
         </div>
 </body>
+<script>
+    const subtotal = Number("{{ subtotal }}");
+    const campoPropina = document.getElementById("propina");
+    const campoTotal = document.getElementById("total:");
+    campoPropina.addEventListener("input", function (){
+        const propina = Number(campoPropina.value) || 0;
+        const total = subtotal + propina;
+        campoTotal.value = total;
+    });
+</script>
 </html>
