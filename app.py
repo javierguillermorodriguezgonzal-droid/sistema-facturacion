@@ -536,7 +536,7 @@ from datetime import datetime
 
 @app.route("/prueba-productos")
 def prueba_productos():
-    productos = models.product.query.fliter(
+    productos = models.Product.query.filter(
         models.Product.Stock > 0
     ).all()
 

@@ -22,7 +22,7 @@
           <option value="">SELECCIONE UNA CATEGORIA</option>
           {% for categoria in categorias %}
            <option value="{{ categoria.Id_Categoria }}"
-            {% if categoria.Id_Ctayegory|string == categoria_seleccionada|string %}selected{% endif %}>
+            {% if categoria.Id_Category|string == categoria_seleccionada|string %}selected{% endif %}>
             {{ categoria.name }}
            </option>
           {% endfor %}
@@ -44,8 +44,8 @@
                   type="submit"
                   class="boton_menu"
                   name="product_id"
-                  value="{{ producto.Id_producto }}">
-                  {{ roducto.name }} - ${{ producto.Selling_price }}
+                  value="{{ producto.Id_product }}">
+                  {{ Producto.name }} - ${{ producto.Selling_price }}
               </button>
           {% endfor %}
       {% elif categoria_seleccionada %}
