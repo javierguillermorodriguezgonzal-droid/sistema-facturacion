@@ -34,4 +34,5 @@ class Invoice(db.Model):
     )
 
     Sub_total = db.Column(db.Numeric(10, 2), nullable=False)
+    Tip = db.Column(db.Numeric(10,2), nullable=True,default=0)
     total = db.Column(db.Numeric(10, 2), nullable=False)
