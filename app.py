@@ -498,7 +498,18 @@ def registrar_cliente():
 
 @app.route("/consultar_cliente")
 def consultar_cliente():
-    return render_template("consultar_cliente.html")
+
+    identificacion = request.args.get("identification")
+
+    cliente = models.person.query.filter_by(
+        identification=identificacion
+    ).first()
+
+    return render_template(
+        "consultar_cliente.html",
+        identificacion=identificacion,
+        cliente=cliente
+    )
 
 @app.route("/editar_cliente")
 def editar_cliente():
