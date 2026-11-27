@@ -9,25 +9,24 @@
     <h1>FACTURA DE VENTA</h1>
 
     <h2>Informacion de cliente</h2>
-    <label>Nombre del cliente:</label>
-        <br>
-        <input type="text" readonly name="name">
-        <br>
+    <form method="GET">
+        <label>Numero de documento o RUT:</label>
+        <input type="text" name="identification">
+        <button type="submit">BUSCAR CLIENTE</button>
+        <label>Nombre del cliente:</label>
+        <input type="text" name="name" readonly value="{{ cliente.Name if cliente else ''}}">
         <label>Numero de documento:</label>
-        <br>
-        <input type="text" readonly name="identification">
-        <br>
-        <label>Correo electronico</label>
-        <br>
-        <input type="text" readonly name="email">
-        <br>
-        <h2>Detalle de la venta</h2>
+        <input type="text" name="identification" readonly value="{{ cliente.Identification if cliente else ''}}">
+        <label>Numero de celular:</label>
+        <input type="text" name="phones_number" readonly value="{{ cliente.phones_number if cliente else ''}}">
+        <label>Correo electronico:</label>
+        <input type="email" name="Email" readonly value="{{ cliente.Email if cliente else ''}}">
         <p><strong>Fecha:</strong> {{ fecha }}</p>
         <p><strong>Hora:</strong> {{ hora }}</p>
         <p><strong>Mesa:</strong> {{ mesa }}</p>
+        <h2>Detalle de la venta</h2>
         <br>
-        <input type="text" readonly>
-        <br>
+    </form>
         <label>PRODUCTOS</label>
          {% for articulo in pedido %}
          <p>

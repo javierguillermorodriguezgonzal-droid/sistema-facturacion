@@ -501,8 +501,8 @@ def consultar_cliente():
 
     identificacion = request.args.get("identification")
 
-    cliente = models.person.query.filter_by(
-        identification=identificacion
+    cliente = models.Person.query.filter_by(
+        Identification=identificacion
     ).first()
 
     return render_template(

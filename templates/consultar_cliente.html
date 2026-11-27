@@ -17,19 +17,19 @@
         <br><br>
         <label>Nombre del cliente:</label>
         <br>
-        <input type="text" name="name" readonly>
+        <input type="text" name="name" readonly value="{{ cliente.Name if cliente else ''}}">
         <br><br>
         <label>Numero de documento:</label>
         <br>
-        <input type="text" name="identification" readonly>
+        <input type="text" name="identification" readonly value="{{ cliente.Identification if cliente else ''}}">
         <br><br>
         <label>Numero de celular:</label>
         <br>
-        <input type="text" name="phones_number" readonly>
+        <input type="text" name="phones_number" readonly value="{{ cliente.phones_number if cliente else ''}}">
         <br><br>
         <label>Correo electronico:</label>
         <br>
-        <input type="email" name="email" readonly>
+        <input type="email" name="Email" readonly value="{{ cliente.Email if cliente else ''}}">
         <br><br>
     </form>
     <br>
