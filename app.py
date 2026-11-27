@@ -531,6 +531,12 @@ def factura(zona,mesa):
         articulo["precio"] * articulo ["cantidad"]
         for articulo in pedido
     )
+    identificacion = request.args.get("identificacion")
+    cliente = None
+    if identificacion:
+        cliente = models.Person.query.filter_by(
+            Identification=identificacion
+        ).first()
 
     return render_template(
         "factura.html",
